@@ -1,38 +1,52 @@
 #include "ft_printf.h"
 
-void	ft_putnbr(int n)
+int	ft_putnbr(int n)
 {
-	if (n == -2147483648)
+	int i;
+
+	i = 0; 
+	if (n == -2147483648 && (i = 11))
 		ft_putstr("-2147483648");
 	else if (n < 0)
 	{
 		ft_putchar('-');
-		ft_putnbr(-n);
+		i++;
+		i += ft_putnbr(-n);
 	}
 	else if (n >= 10)
 	{
-		ft_putnbr(n / 10);
+		i += ft_putnbr(n / 10);
 		ft_putchar(n % 10 + '0');
+		i++;
 	}
-	else
+	else if(++i)
 		ft_putchar(n + '0');
+	return i;
 }
 
-void	ft_putunbr(unsigned int n)
+int		ft_putunbr(unsigned int n)
 {
+	int i = 0;
 	if (n >= 10)
 	{
-		ft_putunbr(n / 10);
+		i += ft_putunbr(n / 10);
+		i++;
 		ft_putchar(n % 10 + '0');
 	}
 	else
+	{
 		ft_putchar(n + '0');
+		i++;
+	}
+	//printf("numlen = %d\n",i );
+	return(i);
 }
 
-void	ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
 	if (s)
 		write(1, s, ft_strlen((const char*)s));
+	return(ft_strlen((const char*)s));
 }
 
 void	ft_putchar(char c)
@@ -48,4 +62,19 @@ size_t	ft_strlen(const char *str)
 	while (str[cpt])
 		cpt++;
 	return (cpt);
+}
+
+void putspace(int nb)
+{
+	int i;
+
+	i = -1;
+	while(++i < nb)
+		write(1," ",1);
+}
+int isnumber(char c)
+{
+	if(c >= '0' && c <= '9')
+		return 1;
+	return 0;
 }

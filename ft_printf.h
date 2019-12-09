@@ -9,12 +9,13 @@
 # include <stdio.h>
 
 int 	ft_printf(const char *str_in, ...);
-void	ft_putnbr(int n);
-void	ft_putstr(char *s);
+int		ft_putnbr(int n);
+int	ft_putstr(char *s);
 void	ft_putchar(char c);
 size_t	ft_strlen(const char *str);
-void	ft_putunbr(unsigned int n);
-
+int	ft_putunbr(unsigned int n);
+void putspace(int nb);
+int isnumber(char c);
 unsigned long		ft_atoi_base(char *nb, char *base);
 unsigned long		ft_base_is_valid(char *base);
 int		mchb_strl(char nb, char *base);
