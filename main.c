@@ -39,9 +39,21 @@ int main(int argc, char const *argv[])
 	// printf("%d\n",ft_printf("ft_printf ; %% : "));
 	// printf("%d\n",printf("printf    ; %% : "));
 
+	//-0.*
 	//printf("Flag testing \n");
-	printf("Test with int %10s|\n","test" );
-	ft_printf("Test with int %10s|\n","test" );
+	// -NB S : Si len < nb, add nb-len spaces
+	// si premier = 0, add nombre suite de 0 devqnt le nb
+	//Juste nb direct, nb-len spaces at the left
+	printf("Test with int %4d|\n",123 );
+	printf("Test with int %- 4d|\n",123 );
+	printf("Test with int %s|\n","test" );
+	printf("Test with int %s|\n","test" );
+	printf("Test with int %s|\n","test" );
+	printf("Test with int %s|\n","test" );
+	printf("Test with int %s|\n","test" );
+
+
+	//ft_printf("Test with int %10s|\n","test" );
 	//printf("Test with int %10d |\n",153 );
 	//printf("Test with int %.10d |\n",153 );
 	//printf("Test with int %*d test %d \n",12, 250, 100 );
