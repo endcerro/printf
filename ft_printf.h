@@ -44,7 +44,6 @@ char 				*process(c_contr *controller);
 char 				*process_flag(c_contr *controller);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*process_star(c_contr *controller);
-//int				ft_pow(int nb, int pow);
 
 
 #endif
