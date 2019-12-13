@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include <stdio.h>
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*out;
@@ -19,6 +19,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		sz;
 
 	sz = 1;
+	if(s1 == NULL && s2 == NULL)
+	{
+		printf("double Null\n");
+		return NULL;
+	}
+
+	//printf("We still here\n");
 	if (s1)
 		sz += ft_strlen(s1);
 	if (s2)

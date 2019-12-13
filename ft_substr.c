@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edal--ce <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/09 13:28:14 by edal--ce          #+#    #+#             */
-/*   Updated: 2019/09/09 13:28:17 by edal--ce         ###   ########.fr       */
+/*   Created: 2019/11/07 15:47:12 by edal--ce          #+#    #+#             */
+/*   Updated: 2019/11/13 21:33:05 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int		i;
-	char	*p;
+	char	*out;
+	char	*cp;
+	size_t	i;
 
-	if(s1 == NULL)
-		return NULL;
-	if (!(p = malloc(sizeof(char) * (ft_strlen(s1) + 1))))
+	i = 0;
+	out = 0;
+	if (!s)
 		return (0);
-	i = -1;
-	while (s1[++i])
-		p[i] = s1[i];
-	p[i] = 0;
-	return (p);
+	if (ft_strlen(s) < start || len == 0)
+		return (ft_strdup(""));
+	if (!(out = malloc(sizeof(char) * (len + 1))))
+		return (0);
+	cp = out;
+	while (s[start + i] && i < len)
+		*(out++) = s[start + i++];
+	*out = 0;
+	return (cp);
 }

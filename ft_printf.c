@@ -27,6 +27,7 @@ char *process_type(c_contr *controller)
 	i = 0;
 	output = 0;
 
+	//printf("processing ;%c\n",controller->str_in[*(controller->pos)]);
 	if(controller->str_in[*(controller->pos)] == 'd' || controller->str_in[*(controller->pos)] == 'i')
 	{
 		output =  ft_itoa(va_arg(*(controller->args), int));
@@ -61,8 +62,10 @@ char *process_type(c_contr *controller)
 		output = ft_convert_base(ft_ultoa((unsigned long)va_arg(*(controller->args), unsigned int)),"0123456789", "0123456789abcdef");
 	else if(controller->str_in[*(controller->pos)] == 'X')
 		output = ft_convert_base(ft_ultoa((unsigned long)va_arg(*(controller->args), unsigned int)),"0123456789", "0123456789ABCDEF");
-	if(output != NULL)
-		*(controller->pos) += 1;
+	//if(output != NULL)
+	*(controller->pos) += 1;
+	if(output == NULL)
+		*(controller->len) += 1;
 	return output;
 }
 
@@ -78,8 +81,13 @@ char *process_flag(c_contr *controller)
 		out = process_minus(controller);
 	else if(isnumber(c))
 		out = process_nb(controller);
+	else if(c == '.')
+		out = process_dot(controller);
+	else if(c == '*')
+		out = process_nb(controller);
 	else
 		out = process_type(controller);
+	//printf("%s\n",out);
 	return out;
 }
 
@@ -91,11 +99,15 @@ char *process(c_contr *controller)
 	c_to_s[1] = '\0';
 	output = 0;
 	if((controller->str_in)[*(controller->pos)] == 0)
-		return 0;
+	{
+		c_to_s[0] = 0;
+		return ft_strdup(c_to_s);
+	}
 	if((controller->str_in)[*(controller->pos)] == '%')
 	{	
 			*(controller->pos) += 1;
 			output = ft_strjoin(process_flag(controller), process(controller));
+			//printf("output = %s",output );
 	}
 	else if((controller->str_in)[*(controller->pos)] != 0)
 	{
@@ -127,6 +139,6 @@ int ft_printf(const char *str_in, ...)
    	
    	to_print = process(controller);
    	printf("%s",to_print );
-
-   	return ft_strlen(to_print);
+   	*(controller->len) += ft_strlen(to_print); 
+   	return *(controller->len);
 }

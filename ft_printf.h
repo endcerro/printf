@@ -37,8 +37,13 @@ char 	*process_0(c_contr *controller);
 int		ft_atoi(const char *in);
 int		ft_isdigit(int c);
 char 	*process_type(c_contr *controller);
+char	*process_dot(c_contr *controller);
 char *process_minus(c_contr *controller);
 char *process_nb(c_contr *controller);
+char *process(c_contr *controller);
+char *process_flag(c_contr *controller);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*process_star(c_contr *controller);
 //int				ft_pow(int nb, int pow);
 
 

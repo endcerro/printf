@@ -2,38 +2,69 @@
 #include <limits.h>
 int main(int argc, char const *argv[])
 {
-	char *test;
-	test = malloc(sizeof(char));
+	char *test = "Sample text";
+	//test = malloc(sizeof(char));
+	//ft_printf("%05.4d\n", 16);
+	//printf("%05.4d\n", 16);
 
-	printf("Convertions test ; \n------------------------ \n");
+	//printf("%.10s \n", "abcdefghijklmnopqrstuvwxyz");
+	//ft_printf("%.10s \n", "abcdefghijklmnopqrstuvwxyz");
 
-	printf("%%p test\n");
-	printf("%d\n",ft_printf("ft_printf ; %p : ", test));
-	printf("%d\n",printf("printf    ; %p : ",test ));
+	//printf("%d\n",ft_printf("s%.10s", (char *)0));
+	//printf("%d\n",printf("s%.10s", (char *)0));
 
-	ft_printf("------------------------ \n%%x test\n");
-	printf("%d\n",ft_printf("ft_printf ; %x : ", 1253));
-	printf("%d\n",printf("printf    ; %x : ",1253 ));
+	
 
-	ft_printf("------------------------ \n%%X test\n");
-	printf("%d\n",ft_printf("ft_printf ; %X : ", 1253));
-	printf("%d\n",printf("printf    ; %X : ",1253 ));
 
-	ft_printf("------------------------ \n%%u test\n");
-	printf("%d\n",ft_printf("ft_printf ; %u : ", 25666));
-	printf("%d\n",printf("printf    ; %u : ",25666));
+	//printf("%.6s\n", "12345");
+	//ft_printf("%.6s\n", "12345");
+	//ft_printf("%20.30s\n", "0123456789abcdefghijklmnopqrstuv");
+	printf("%20.30s\n", "0123456789abcdefghijklmnopqrstuv");
+	ft_printf("%20.30s\n", "0123456789abcdefghijklmnopqrstuv");
+	//printf("%*.*dp%%\n", -20, 15, -12345);
+	
+	//ft_printf("%*d p%%\n", -10, 15, -12345);
+	//printf("%*d p%%\n", -10, 15, -12345);
 
-	ft_printf("------------------------ \n%%c test\n");
-	printf("%d\n",ft_printf("ft_printf ; %c : ", 'Y'));
-	printf("%d\n",printf("printf    ; %c : ",'Y' ));
+	//ft_printf("%20.30s\n", "0123456789abcdefghijklmnopqrstuv");
+	//printf("%20.30s\n", "0123456789abcdefghijklmnopqrstuv");
 
-	ft_printf("------------------------ \n%%s test\n");
-	printf("%d\n",ft_printf("ft_printf ; %s : ","Sample text"));
-	printf("%d\n",printf("printf    ; %s : ","Sample text" ));
+	
 
-	ft_printf("------------------------ \n%%i %%d test\n");
-	printf("%d\n",ft_printf("ft_printf ; %i %10d : ",123, 321));
-	printf("%d\n",printf("printf    ; %i %10d : ",123, 321));
+
+	//printf("%.20d \n", 1205);
+	//ft_printf("%.20d \n", 1205);
+
+
+	// printf("Convertions test ; \n------------------------ \n");
+
+	// printf("%%p test\n");
+	// printf("%d\n",ft_printf("ft_printf ; %p : ", test));
+	// printf("%d\n",printf("printf    ; %p : ",test ));
+
+	// ft_printf("------------------------ \n%%x test\n");
+	// printf("%d\n",ft_printf("ft_printf ; %x : ", 1253));
+	// printf("%d\n",printf("printf    ; %x : ",1253 ));
+
+	// ft_printf("------------------------ \n%%X test\n");
+	// printf("%d\n",ft_printf("ft_printf ; %X : ", 1253));
+	// printf("%d\n",printf("printf    ; %X : ",1253 ));
+
+	// ft_printf("------------------------ \n%%u test\n");
+	// printf("%d\n",ft_printf("ft_printf ; %u : ", 25666));
+	// printf("%d\n",printf("printf    ; %u : ",25666));
+
+	// ft_printf("------------------------ \n%%c test\n");
+	// printf("%d\n",ft_printf("ft_printf ; %c : ", 'Y'));
+	// printf("%d\n",printf("printf    ; %c : ",'Y' ));
+
+	// ft_printf("------------------------ \n%%s test\n");
+	// printf("%d\n",ft_printf("ft_printf ; %s : ","Sample text"));
+	// printf("%d\n",printf("printf    ; %s : ","Sample text" ));
+
+	// ft_printf("------------------------ \n%%i %%d test\n");
+	// printf("%d\n",ft_printf("ft_printf ; %i %10d : ",123, 321));
+	// printf("%d\n",printf("printf    ; %i %10d : ",123, 321));
 
 	// ft_printf("------------------------ \n%%%% test\n");
 	// printf("%d\n",ft_printf("ft_printf ; %% : "));
