@@ -26,11 +26,11 @@ char *process_0(c_contr *controller)
 		out = ' ';
 	*(controller->pos) += i;
 		output = process_flag(controller);
-	if(ft_strlen(output) < nb)
+	if((int)ft_strlen(output) < nb)
 	{
 		i = -1;
-		zeros = malloc(sizeof(char) * ( nb - ft_strlen(output) + 1 ));
-		cpt = nb - ft_strlen(output);
+		zeros = malloc(sizeof(char) * ( nb - (int)ft_strlen(output) + 1 ));
+		cpt = nb - (int)ft_strlen(output);
 		while(++i < cpt)
 			zeros[i] = out;
 		zeros[i] = 0;
@@ -59,11 +59,11 @@ char *process_minus(c_contr *controller)
 		i++;
 	*(controller->pos) += i;
 	output = process_type(controller);
-	if(ft_strlen(output) < nb)
+	if((int)ft_strlen(output) < nb)
 	{
 		i = -1;
-		zeros = malloc(sizeof(char) * ( nb - ft_strlen(output) + 1 ));
-		cpt = nb - ft_strlen(output);
+		zeros = malloc(sizeof(char) * ( nb - (int)ft_strlen(output) + 1 ));
+		cpt = nb - (int)ft_strlen(output);
 		while(++i < cpt)
 			zeros[i] = ' ';
 		zeros[i] = 0;
@@ -113,12 +113,12 @@ char	*process_dot(c_contr *controller)
 		j++;
 	if(test)
 		output = ft_substr(output, 0, nb);
-	else if(ft_strlen(output) < nb)
+	else if((int)ft_strlen(output) < nb)
 	{
-		printf("aqui\n");
+		//printf("aqui\n");
 		i = -1;
-		zeros = malloc(sizeof(char) * ( nb - ft_strlen(output) + 1 ));
-		cpt = nb - ft_strlen(output);
+		zeros = malloc(sizeof(char) * ( nb - (int)ft_strlen(output) + 1 ));
+		cpt = nb - (int)ft_strlen(output);
 		while(++i < cpt)
 			zeros[i] = '0';
 		zeros[i] = 0;
@@ -158,11 +158,11 @@ char *process_nb(c_contr *controller)
 	}
 	*(controller->pos) += i;
 	output = process_flag(controller);
-	if((nb - ft_strlen(output)) > 0 )
+	if((nb - (int)ft_strlen(output)) > 0 )
 	{
 		
 		i = -1;
-		cpt = abs(nb) - ft_strlen(output);
+		cpt = abs(nb) - (int)ft_strlen(output);
 		if(cpt <= 0)
 			return output;
 		zeros = malloc(sizeof(char) * ( cpt + 1 ));
@@ -176,7 +176,7 @@ char *process_nb(c_contr *controller)
 			output = ft_strjoin(output,zeros);
 		free(zeros);
 	}
-	printf("here\n");
+	//printf("here\n");
 	return(output);
 }
 

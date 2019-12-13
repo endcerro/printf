@@ -20,7 +20,6 @@ char *process_type(c_contr *controller)
 	int i;
 	char *output;
 	char *temp;
-	int j;
 	int nb;
 
 	nb = 0;

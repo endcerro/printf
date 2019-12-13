@@ -1,8 +1,8 @@
 #include "ft_printf.h"
 #include <limits.h>
-int main(int argc, char const *argv[])
+int main()
 {
-	char *test = "Sample text";
+	//char *test = "Sample text";
 	//test = malloc(sizeof(char));
 	//ft_printf("%05.4d\n", 16);
 	//printf("%05.4d\n", 16);
