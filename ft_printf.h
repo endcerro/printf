@@ -8,6 +8,14 @@
 
 # include <stdio.h>
 
+
+typedef struct		c_list
+{
+	int 			*len;
+	int 			*pos;
+	va_list			*args;
+	char 			*str_in;
+}					c_contr;
 int 	ft_printf(const char *str_in, ...);
 int		ft_putnbr(int n);
 int	ft_putstr(char *s);
@@ -22,6 +30,16 @@ int		mchb_strl(char nb, char *base);
 void	ft_addto(char *st, unsigned long *nb, char c);
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
 char	*ft_ultoa(unsigned long n);
+char			*ft_itoa(int n);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *s1);
+char 	*process_0(c_contr *controller);
+int		ft_atoi(const char *in);
+int		ft_isdigit(int c);
+char 	*process_type(c_contr *controller);
+char *process_minus(c_contr *controller);
+char *process_nb(c_contr *controller);
+//int				ft_pow(int nb, int pow);
 
 
 #endif

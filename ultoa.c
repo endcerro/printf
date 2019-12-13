@@ -13,7 +13,7 @@ static unsigned long		getlen(unsigned long n)
 	return (i);
 }
 
-unsigned long		ft_pow(unsigned long nb, unsigned long pow)
+unsigned long		ft_powu(unsigned long nb, unsigned long pow)
 {
 	unsigned long i;
 	unsigned long dest;
@@ -39,10 +39,10 @@ char			*ft_ultoa(unsigned long n)
 		return (0);
 	while (i < len)
 	{
-		out[indxo++] = (n / ft_pow(10, len - i)) + '0';
-		n -= n / ft_pow(10, len - i) * ft_pow(10, len - i);
-		i++;
+	 	out[indxo++] = (n / ft_powu(10, len - i)) + '0';
+	 	n -= n / ft_powu(10, len - i) * ft_powu(10, len - i);
+	 	i++;
 	}
-	out[indxo] = '\0';
+	 out[indxo] = '\0';
 	return (out);
 }

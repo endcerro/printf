@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 
+
 void	ft_addto(char *st, unsigned long *nb, char c)
 {
 	st[*nb] = c;

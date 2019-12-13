@@ -57,7 +57,9 @@ void	ft_putchar(char c)
 size_t	ft_strlen(const char *str)
 {
 	size_t cpt;
-
+	//printf("NLFT\n");
+	if(str == 0)
+		return 0;
 	cpt = 0;
 	while (str[cpt])
 		cpt++;
