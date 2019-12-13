@@ -17,11 +17,6 @@ NAME = printf.a
 	
 SRCS = main.c ft_printf.c ft_printf_utils.c
 
-BNSSRC = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstclear.c\
-ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c ft_lstmap.c\
-ft_lstiter.c
-
-
 #BNSOBJ = ${BNSSRC:.c=.o}
 
 OBJS = ${SRCS:.c=.o}
@@ -35,10 +30,6 @@ LIBS = libft.a
 run : ${OBJS}
 	cd libft && make
 	${CC} ${CFLAGS} $(LIBS) -I ./ *.c -L libft/
-
-run2 :
-	cd libft && make && mv libft.a ../.
-	${CC} ${CFLAGS} -I ./ *.c -L libft.a
 
 all : $(NAME)
 

@@ -15,13 +15,11 @@
 
 char *process_type(c_contr *controller)
 {
-	int i;
 	char *output;
 	char *temp;
 	int nb;
 
 	nb = 0;
-	i = 0;
 	output = 0;
 
 	if(controller->str_in[*(controller->pos)] == 'd' || controller->str_in[*(controller->pos)] == 'i')
@@ -44,9 +42,16 @@ char *process_type(c_contr *controller)
 		*output = '%';
 		output[1] = 0;
 	}
-	else if(controller->str_in[*(controller->pos)] == 's' && ++i)
-		output = ft_strdup(va_arg(*(controller->args), char*));
-	else if(controller->str_in[*(controller->pos)] == 'p' && ++i)
+	else if(controller->str_in[*(controller->pos)] == 's')
+	{
+		//printf("alive\n");
+		char *test = va_arg(*(controller->args), char*);
+		//printf("%p\n",test);
+		if(test != NULL)
+			output = ft_strdup((const char*)test);
+		//printf("ded\n");
+	}
+	else if(controller->str_in[*(controller->pos)] == 'p')
 	{
 		unsigned long ul = va_arg(*(controller->args), unsigned long);
 		temp = ft_convert_base(ft_ultoa(ul),"0123456789", "0123456789abcdef");

@@ -90,7 +90,7 @@ char	*process_star(c_contr *controller)
 
 char	*process_dot(c_contr *controller)
 {
-
+	//printf("HERE\n");
 	int i;
 	char *output;
 	char *zeros;
@@ -154,7 +154,9 @@ char *process_nb(c_contr *controller)
 	char *zeros;
 	int cpt;
 	int nb;
+	char *tmp;
 
+	//printf("nded\n");
 	i = 0;
 	output = NULL;
 	nb = ft_atoi(controller->str_in + *(controller->pos));
@@ -162,13 +164,17 @@ char *process_nb(c_contr *controller)
 		i++;
  	if(controller->str_in[*(controller->pos) + i] == '*')
 	{
-		nb = va_arg(*(controller->args), int);	
+		nb = va_arg(*(controller->args), int);
+
 		i++;
 	}
 	*(controller->pos) += i;
 	output = process_flag(controller);
-	if((nb - (int)ft_strlen(output)) > 0 )
+	//printf("inllop\n");
+	//printf("nb = %d\n", nb);
+	if((abs(nb) - (int)ft_strlen(output)) > 0 )
 	{
+
 		
 		i = -1;
 		cpt = abs(nb) - (int)ft_strlen(output);
@@ -177,11 +183,21 @@ char *process_nb(c_contr *controller)
 		zeros = malloc(sizeof(char) * ( cpt + 1 ));
 		while(++i < cpt)
 			zeros[i] = ' ';
+		//printf("nded\n");
 		zeros[i] = 0;
+		//printf("nded\n");
 		if(nb > 0)
-			output = ft_strjoin(zeros,output);
+		{
+			tmp = ft_strjoin(zeros,output);
+			free(output);
+			output = tmp;
+		}
 		else
-			output = ft_strjoin(output,zeros);
+		{
+			tmp = ft_strjoin(output,zeros);
+			free(output);
+			output = tmp;
+		}
 		free(zeros);
 	}
 	return(output);
