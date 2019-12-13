@@ -54,8 +54,8 @@ all : $(NAME)
 #fclean : clean
 #	rm -rf  ./$(NAME)
 
-#clean :
-#	rm -rf ${OBJS} ${BNSOBJ}
+clean :
+	rm -rf ${OBJS}
 	
 #re : fclean all
 
