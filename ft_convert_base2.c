@@ -79,15 +79,13 @@ unsigned long		ft_atoi_base(char *nb, char *base)
 {
 	unsigned long		i;
 	unsigned long		final_nb;
-	unsigned long		retnb;
 	char				cpy[ft_strlen(nb)];
-	unsigned long		size;
-
+	
 	i = 0;
 	final_nb = 0;
-	retnb = clean(nb, base, cpy);
+	clean(nb, base, cpy);
 	//printf("retnb = %lu\n",retnb);
-	size = ft_strlen(cpy);
+	ft_strlen(cpy);
 	while (cpy[i])
 	{
 		final_nb = final_nb * ft_strlen(base) + mchb_strl((cpy[i]), base);

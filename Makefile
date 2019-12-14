@@ -29,7 +29,7 @@ LIBS = libft.a
 
 run : ${OBJS}
 	cd libft && make
-	${CC} ${CFLAGS} $(LIBS) -I ./ *.c -L libft/
+	${CC} $(LIBS) -I ./ *.c -L libft/
 
 all : $(NAME)
 

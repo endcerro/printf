@@ -17,62 +17,59 @@ char *process_type(c_contr *controller)
 {
 	char *output;
 	char *temp;
-	int nb;
-
-	nb = 0;
+	char c;
 	output = 0;
 
-	if(controller->str_in[*(controller->pos)] == 'd' || controller->str_in[*(controller->pos)] == 'i')
+	c = controller->str_in[*(controller->pos)]; 
+	if(c == 'd' || c == 'i')
 	{
 		output =  ft_itoa(va_arg(*(controller->args), int));
 	}
-	else if(controller->str_in[*(controller->pos)] == 'u')
+	else if(c == 'u')
 	{
 		output = ft_ultoa(va_arg(*(controller->args), unsigned int));
 	}
-	else if(controller->str_in[*(controller->pos)] == 'c')
+	else if(c == 'c')
 	{
 		output = malloc(sizeof(char) * 2);
 		*output = va_arg(*(controller->args), int);
 		output[1] = 0;
 	}
-	else if(controller->str_in[*(controller->pos)] == '%')
+	else if(c == '%')
 	{
 		output = malloc(sizeof(char) * 2);
 		*output = '%';
 		output[1] = 0;
 	}
-	else if(controller->str_in[*(controller->pos)] == 's')
+	else if(c == 's')
 	{
-		//printf("alive\n");
 		char *test = va_arg(*(controller->args), char*);
-		//printf("%p\n",test);
 		if(test != NULL)
 			output = ft_strdup((const char*)test);
-		//printf("ded\n");
 	}
-	else if(controller->str_in[*(controller->pos)] == 'p')
+	else if(c == 'p')
 	{
 		unsigned long ul = va_arg(*(controller->args), unsigned long);
 		temp = ft_convert_base(ft_ultoa(ul),"0123456789", "0123456789abcdef");
 		output = ft_strjoin("0x", temp);
 		free(temp);
 	}
-	else if(controller->str_in[*(controller->pos)] == 'x')
+	else if(c == 'x')
 	{
 		temp = ft_ultoa((unsigned long)va_arg(*(controller->args), unsigned int));
 		output = ft_convert_base(temp, "0123456789", "0123456789abcdef");
 		free(temp);
 	}
-	else if(controller->str_in[*(controller->pos)] == 'X')
+	else if(c == 'X')
 	{	
 		temp = ft_ultoa((unsigned long)va_arg(*(controller->args), unsigned int));
 		output = ft_convert_base(temp,"0123456789", "0123456789ABCDEF");
 		free(temp);
 	}
-	*(controller->pos) += 1;
-	if(output == NULL)
+	//Pas sur du &&
+	if(output == NULL && c == 's')
 		*(controller->len) += 1;
+	*(controller->pos) += 1;
 	return output;
 }
 
@@ -103,6 +100,8 @@ char *process(c_contr *controller)
 	char *tmp;
 	char *tmp2;
 
+
+	tmp = 0;
 	c_to_s[0] = '\0';
 	c_to_s[1] = '\0';
 	output = NULL;
@@ -111,21 +110,22 @@ char *process(c_contr *controller)
 	
 	if((controller->str_in)[*(controller->pos)] == '%')
 	{		
-		*(controller->pos) += 1;
+		*(controller->pos) += 1;//
 		tmp = process_flag(controller);
-		tmp2 = process(controller);
+		tmp2 = process(controller);//
 		output = ft_strjoin(tmp, tmp2);
-		free(tmp);
+		//free(tmp);
 		free(tmp2);
 	}
 	else if((controller->str_in)[*(controller->pos)] != 0)
 	{
 		c_to_s[0] = (controller->str_in)[*(controller->pos)];
-		*(controller->pos) += 1;
-		tmp = process(controller);
+		*(controller->pos) += 1;//
+		tmp = process(controller);//
 		output = ft_strjoin(c_to_s, tmp);
-		free(tmp);
+		//free(tmp);
 	}
+	free(tmp);
 	return output;
 }
 
