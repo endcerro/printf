@@ -41,7 +41,7 @@ char *append_char(char *base, char to_add, int count, int order)
 		out = ft_strjoin(zeros, base);
 	else
 		out = ft_strjoin(base, zeros);
-	free(output); 
+	free(base); 
 	free(zeros);	
 	return(out)
 }
