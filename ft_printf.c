@@ -97,36 +97,24 @@ char *process(c_contr *controller)
 {
 	char *output;
 	char c_to_s[2];
-	char *tmp;
-	char *tmp2;
+	char *tmp[2];
 
-
-	tmp = 0;
-	c_to_s[0] = '\0';
+	
+	if ((controller->str_in)[*(controller->pos)] == '\0')
+		return (ft_strdup(""));
 	c_to_s[1] = '\0';
 	output = NULL;
-	if((controller->str_in)[*(controller->pos)] == 0)
-		return (ft_strdup(c_to_s));
-	
-	if((controller->str_in)[*(controller->pos)] == '%')
-	{		
-		*(controller->pos) += 1;//
-		tmp = process_flag(controller);
-		tmp2 = process(controller);//
-		output = ft_strjoin(tmp, tmp2);
-		//free(tmp);
-		free(tmp2);
-	}
-	else if((controller->str_in)[*(controller->pos)] != 0)
-	{
-		c_to_s[0] = (controller->str_in)[*(controller->pos)];
-		*(controller->pos) += 1;//
-		tmp = process(controller);//
-		output = ft_strjoin(c_to_s, tmp);
-		//free(tmp);
-	}
-	free(tmp);
-	return output;
+	*(controller->pos) += 1;
+	if ((controller->str_in)[*(controller->pos) - 1] == '%')
+		tmp[0] = process_flag(controller);
+	else if ((tmp[0] = &(c_to_s[0])))
+		c_to_s[0] = (controller->str_in)[*(controller->pos) - 1];
+	tmp[1] = process(controller);
+	output = ft_strjoin(tmp[0], tmp[1]);
+	if(tmp[0] != &(c_to_s[0]))
+		free(tmp[0]);
+	free(tmp[1]);
+	return (output);
 }
 
 int ft_printf(const char *str_in, ...)
