@@ -31,65 +31,37 @@ char *process_0(c_contr *controller)
 	char out;
 	int nb;
 
-	//printf("process_0\n");
 	nb = 0;
 	out = '0';
 	i = 0;
 	*(controller->pos) += 1;
-	output = NULL;
 	nb = ft_atoi(controller->str_in + *(controller->pos));
 	while(isnumber(controller->str_in[*(controller->pos) + i]))
 		i++;
 	if(controller->str_in[*(controller->pos)] == '*' && ++i)
-	{
-
 		nb = va_arg(*(controller->args), int);
-		//printf("case, nb = %d \n",nb );
-	}
 	if(controller->str_in[*(controller->pos) + i] == '.')
 		out = ' ';
 	*(controller->pos) += i;
 	i = *(controller->pos);
-
 	output = process_flag(controller);
+	if(nb == 0)
+		return output;
 	if(controller->str_in[i] == 'i' || controller->str_in[i] == 'd')
 	{
-		//printf("case, nb = %d \n",nb );
-		if(nb < 0)
+		if(nb < 0 && ((int)ft_strlen(output) < abs(nb)))
+			output = append_char(output, ' ', abs(nb), 0); 
+		else if(output[0] == '-' && (int)ft_strlen(output) < nb)
 		{
-			if((int)ft_strlen(output) < abs(nb))
-			{
-				//printf("here |%s|\n", output);
-				//output[0] = '0';
-				output = append_char(output, ' ', abs(nb), 0); 
-				//printf("here |%s|\n", output);
-				//output[0] = '-';
-			}
-		}
-		else if(output[0] == '-')
-		{	
-			if((int)ft_strlen(output) < nb)
-			{
-				output[0] = '0';
-				output = append_char(output,out, nb, 1); 
-				output[0] = '-';
-			}
-		}
-		else if(nb == 0){
-			return output;
+			output[0] = '0';
+			output = append_char(output, out, nb, 1); 
+			output[0] = '-';
 		}
 		else
-		{
-			//printf("CASE\n");
-			output = append_char(output,out, nb, 1);	
-		}
-		
+			output = append_char(output,out, nb, 1);
 	}	
 	else if((int)ft_strlen(output) < nb)
-	{
 		output = append_char(output,out, nb, 1); 
-	}
-	//printf("here |%s|\n", output);
 	return(output);
 }
 
@@ -99,39 +71,18 @@ char *process_minus(c_contr *controller)
 	char *output;
 	int nb;
 
-	//printf("|%c|", controller->str_in[*(controller->pos)]);
-	//printf("process_minus \n");
-
 	i = 0;
-	//printf("|%c|", controller->str_in[*(controller->pos)]);
 	*(controller->pos) += 1;
-	//printf("|%c|", controller->str_in[*(controller->pos)]);
 	output = NULL;	
-	if(controller->str_in[*(controller->pos)] == '*')
-	{
-		nb = va_arg(*(controller->args), int);
-		i++;
-		nb = abs(nb);
-		//printf("the case %d \n", nb);
-	}
-	else
-		nb = ft_atoi(controller->str_in + *(controller->pos));
-	//printf("|%d|\n",nb )
-	//printf("the case %d \n", nb);
-	//printf("|%c|\n",controller->str_in[*(controller->pos)] );
+	nb = ft_atoi(controller->str_in + *(controller->pos));
+	if(controller->str_in[*(controller->pos)] == '*' && ++i)
+		nb = abs(va_arg(*(controller->args), int));
 	while(isnumber(controller->str_in[*(controller->pos) + i]))
 		i++;
 	*(controller->pos) += i;
-	//printf("|%c|\n",controller->str_in[*(controller->pos)] );
 	output = process_flag(controller);
-	//printf("|%s|\n",output);
-	//printf("|%d|\n",nb );
 	if((int)ft_strlen(output) < nb)
-	{
-		//printf("here\n");
 		output = append_char(output,' ', nb, 0);
-	}
-	//printf("|%s|\n",output);
 	return(output);
 }
 
@@ -139,7 +90,6 @@ char	*process_star(c_contr *controller)
 {
 	*controller->pos += 1;
 	return(process_flag(controller));
-	//return 0;
 }
 
 char	*process_dot(c_contr *controller)
@@ -154,32 +104,22 @@ char	*process_dot(c_contr *controller)
 	i = 0;
 	*(controller->pos) += 1;
 	output = NULL;
-	if(controller->str_in[*(controller->pos)] == '*')
-	{
-		nb = va_arg(*(controller->args), int);
+	nb = ft_atoi(controller->str_in + *(controller->pos));
+	while(isnumber(controller->str_in[*(controller->pos) + i]))
 		i++;
-	}
-	else
-	{
-		nb = ft_atoi(controller->str_in + *(controller->pos));
-		while(isnumber(controller->str_in[*(controller->pos) + i]))
-			i++;
-	}
+	if(controller->str_in[*(controller->pos)] == '*' && ++i)
+		nb = va_arg(*(controller->args), int);
 	*(controller->pos) += i;
-	int test = (controller->str_in[*(controller->pos)] == 's');
 	output = process_type(controller);
-	if(output != NULL && output[0] == '%')
-		return output;
 	if(output == NULL)
 		return NULL;
-	if(test)
+	if(output != NULL && output[0] == '%')
+		return output;
+	if (controller->str_in[*(controller->pos) - 1] == 's' && nb >= 0 && i >= 1)
 	{
-		if(nb >= 0 && i >= 1)
-		{
-			tmp = ft_substr(output, 0, nb);
-			free(output);
-			output = tmp; 
-		}
+		tmp = ft_substr(output, 0, nb);
+		free(output);
+		output = tmp; 
 	}
 	else if((int)ft_strlen(output) <= nb)
 	{
@@ -201,14 +141,11 @@ char	*process_dot(c_contr *controller)
 			tmp = ft_strjoin(zeros,output);
 			free(output);
 			output = tmp;
-			//free(tmp);
 		}
 		free(zeros);
 	}
 	if(nb == 0 && output[0] == '0')
-	{
 		return (ft_strdup(""));
-	}
 	return(output);
 }
 
@@ -216,56 +153,23 @@ char *process_nb(c_contr *controller)
 {
 	int i;
 	char *output;
-	char *zeros;
 	int cpt;
 	int nb;
-	char *tmp;
 
-	//printf("nded\n");
-	//printf("process_nb\n");
 	i = 0;
 	output = NULL;
 	nb = ft_atoi(controller->str_in + *(controller->pos));
 	while(isnumber(controller->str_in[*(controller->pos) + i]))
 		i++;
- 	if(controller->str_in[*(controller->pos) + i] == '*')
-	{
+ 	if(controller->str_in[*(controller->pos) + i] == '*' && ++i)
 		nb = va_arg(*(controller->args), int);
-
-		i++;
-	}
 	*(controller->pos) += i;
 	output = process_flag(controller);
-	//printf("inllop\n");
-	//printf("nb = %d\n", nb);
-	if((abs(nb) - (int)ft_strlen(output)) > 0 )
-	{
-
-		//append_char(char *base, ' ', cpt, int order);
-		i = -1;
-		cpt = abs(nb) - (int)ft_strlen(output);
-		if(cpt <= 0)
-			return output;
-		zeros = malloc(sizeof(char) * ( cpt + 1 ));
-		while(++i < cpt)
-			zeros[i] = ' ';
-		//printf("nded\n");
-		zeros[i] = '\0';
-		//printf("nded\n");
-		if(nb > 0)
-		{
-			tmp = ft_strjoin(zeros,output);
-			free(output);
-			output = tmp;
-		}
-		else
-		{
-			tmp = ft_strjoin(output,zeros);
-			free(output);
-			output = tmp;
-		}
-		free(zeros);
-	}
+	cpt = abs(nb) - (int)ft_strlen(output);
+	if(cpt > 0 && nb > 0)
+			output =append_char(output, ' ', abs(nb), 1);
+	else if(cpt > 0)
+			output = append_char(output, ' ', abs(nb), 0);
 	return(output);
 }
 
