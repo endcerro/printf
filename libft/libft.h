@@ -73,5 +73,6 @@ unsigned long		clean(char *nb, char *base, char *dest);
 unsigned long		ft_base_is_valid(char *base);
 int					mchb_strl(char nb, char *base);
 void				ft_addto(char *st, unsigned long *nb, char c);
+int					ft_abs(int val);
 
 #endif

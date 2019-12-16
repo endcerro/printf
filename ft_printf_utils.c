@@ -1,31 +1,52 @@
 #include "ft_printf.h"
 
-int	ft_putstr(char *s)
+char	*process_s(c_contr *controller)
 {
-	if (s)
-		write(1, s, ft_strlen((const char*)s));
-	return(ft_strlen((const char*)s));
+	char *tmp;
+
+	tmp = va_arg(*(controller->args), char*);
+	if (tmp == NULL)
+		tmp = "(null)";
+	return (ft_strdup(tmp));
 }
 
-void	ft_putchar(char c)
+char	*process_p(c_contr *controller)
 {
-	write(1, &c, 1);
+	char *output;
+	char *tmp;
+
+	output = ft_ultoa(va_arg(*(controller->args), unsigned long));
+	tmp = ft_convert_base(output, "0123456789", "0123456789abcdef");
+	free(output);
+	output = ft_strjoin("0x", tmp);
+	free(tmp);
+	return (output);
 }
 
-size_t	ft_strlen(const char *str)
+char	*process_x(c_contr *controller, char x)
 {
-	size_t cpt;
-	if(str == 0)
-		return 0;
-	cpt = 0;
-	while (str[cpt])
-		cpt++;
-	return (cpt);
+	char *tmp;
+	char *output;
+
+	tmp = ft_ultoa((unsigned long)va_arg(*(controller->args), unsigned int));
+	if (x == 'x')
+		output = ft_convert_base(tmp, "0123456789", "0123456789abcdef");
+	else
+		output = ft_convert_base(tmp, "0123456789", "0123456789ABCDEF");
+	free(tmp);
+	return (output);
 }
 
-int isnumber(char c)
+void	sub_process0(int nb, char *output, char c)
 {
-	if(c >= '0' && c <= '9')
-		return 1;
-	return 0;
+	if(nb < 0 && ((int)ft_strlen(output) < ft_abs(nb)))
+		output = append_char(output, ' ', ft_abs(nb), 0); 
+	else if(output[0] == '-' && (int)ft_strlen(output) < nb)
+	{
+		output[0] = '0';
+		output = append_char(output, c, nb, 1); 
+		output[0] = '-';
+	}
+	else
+		output = append_char(output, c, nb, 1);
 }

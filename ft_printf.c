@@ -11,51 +11,30 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft.h"
-#include <stdarg.h>
 
 char	*process_type(c_contr *controller)
 {
 	char *output;
-	char *temp;
 	char c;
 
 	output = NULL;
 	c = controller->str_in[*(controller->pos)];
-	if(c == 'd' || c == 'i')
-		output =  ft_itoa(va_arg(*(controller->args), int));
-	else if(c == 'u')
+	if (c == 'd' || c == 'i')
+		output = ft_itoa(va_arg(*(controller->args), int));
+	else if (c == 'u')
 		output = ft_ultoa(va_arg(*(controller->args), unsigned int));
-	else if(c == '%' || c == 'c')
+	else if (c == '%' || c == 'c')
 	{
 		output = ft_strdup("%");
-		if(c == 'c')
+		if (c == 'c')
 			output[0] = va_arg(*(controller->args), int);
 	}
-	else if(c == 's')
-	{
-		temp = va_arg(*(controller->args), char*);
-		if(temp == NULL)
-			temp = "(null)";
-		output = ft_strdup(temp);
-	}
-	else if(c == 'p')
-	{
-		output = ft_ultoa(va_arg(*(controller->args), unsigned long));
-		temp = ft_convert_base(output, "0123456789", "0123456789abcdef");
-		free(output);
-		output = ft_strjoin("0x", temp);
-		free(temp);
-	}
-	else if(c == 'X' || c == 'x')
-	{
-		temp = ft_ultoa((unsigned long)va_arg(*(controller->args), unsigned int));
-		if(c == 'x')
-			output = ft_convert_base(temp, "0123456789", "0123456789abcdef");
-		else
-			output = ft_convert_base(temp, "0123456789", "0123456789ABCDEF");
-		free(temp);
-	}
+	else if (c == 's')
+		output = process_s(controller);
+	else if (c == 'p')
+		output = process_p(controller);
+	else if (c == 'X' || c == 'x')
+		output = process_x(controller, c);
 	if (output == NULL)
 		*(controller->len) += 1;
 	*(controller->pos) += 1;
@@ -71,7 +50,7 @@ char	*process_flag(c_contr *controller)
 		return (process_0(controller));
 	else if (c == '-')
 		return (process_minus(controller));
-	else if (isnumber(c))
+	else if (ft_isdigit(c))
 		return (process_nb(controller));
 	else if (c == '.')
 		return (process_dot(controller));
@@ -94,9 +73,8 @@ char	*process(c_contr *controller)
 	*(controller->pos) += 1;
 	if ((controller->str_in)[*(controller->pos) - 1] == '%')
 	{
-		if ((controller->str_in)[*(controller->pos)] == '\0')
-			tmp[0] = NULL;
-		else
+		tmp[0] = NULL;
+		if ((controller->str_in)[*(controller->pos)] != '\0')
 			tmp[0] = process_flag(controller);
 	}
 	else if ((tmp[0] = &(c_to_s[0])))
@@ -126,7 +104,7 @@ int		ft_printf(const char *str_in, ...)
 	controller->len = &(vars[0]);
 	controller->pos = &(vars[1]);
 	to_print = process(controller);
-	ft_putstr(to_print);
+	ft_putstr_fd(to_print, 1);
 	vars[0] += ft_strlen(to_print);
 	free(to_print);
 	free(controller);

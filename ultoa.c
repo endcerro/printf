@@ -13,7 +13,7 @@ static unsigned long		getlen(unsigned long n)
 	return (i);
 }
 
-unsigned long		ft_powu(unsigned long nb, unsigned long pow)
+static unsigned long		ft_powu(unsigned long nb, unsigned long pow)
 {
 	unsigned long i;
 	unsigned long dest;
@@ -25,7 +25,7 @@ unsigned long		ft_powu(unsigned long nb, unsigned long pow)
 	return (dest);
 }
 
-char			*ft_ultoa(unsigned long n)
+char						*ft_ultoa(unsigned long n)
 {
 	char				*out;
 	unsigned long		len;

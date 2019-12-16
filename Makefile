@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 	
 SRCS = ft_printf.c ft_printf_utils.c \
-processflags.c ultoa.c 
+ft_process_flags.c ultoa.c 
 
 LFTDIR = ./libft/
 
@@ -29,7 +29,7 @@ libft/ft_tolower.c libft/ft_toupper.c libft/ft_strjoin.c libft/ft_strmapi.c libf
 libft/ft_convert_base.c libft/ft_convert_base2.c \
 libft/ft_lstnew.c libft/ft_lstadd_front.c libft/ft_lstsize.c libft/ft_lstclear.c\
 libft/ft_lstlast.c libft/ft_lstadd_back.c libft/ft_lstdelone.c libft/ft_lstmap.c\
-libft/ft_lstiter.c
+libft/ft_lstiter.c libft/ft_abs.c
 
 #BNSOBJ = ${BNSSRC:.c=.o}
 

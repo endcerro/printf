@@ -6,7 +6,9 @@
 
 # include <unistd.h>
 
-# include <stdio.h>
+# include <stdarg.h>
+
+# include "libft.h"
 
 
 typedef struct		c_list
@@ -16,31 +18,21 @@ typedef struct		c_list
 	va_list			*args;
 	char 			*str_in;
 }					c_contr;
+
 int 				ft_printf(const char *str_in, ...);
-int					ft_putnbr(int n);
-int					ft_putstr(char *s);
-void				ft_putchar(char c);
-size_t				ft_strlen(const char *str);
-int					ft_putunbr(unsigned int n);
-void 				putspace(int nb);
-int 				isnumber(char c);
-unsigned long		ft_atoi_base(char *nb, char *base);
-unsigned long		ft_base_is_valid(char *base);
 char				*ft_ultoa(unsigned long n);
-char				*ft_itoa(int n);
-char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strdup(char *s1);
 char 				*process_0(c_contr *controller);
-int					ft_atoi(const char *in);
-int					ft_isdigit(int c);
 char 				*process_type(c_contr *controller);
 char				*process_dot(c_contr *controller);
 char 				*process_minus(c_contr *controller);
 char 				*process_nb(c_contr *controller);
 char 				*process(c_contr *controller);
 char 				*process_flag(c_contr *controller);
-char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*process_star(c_contr *controller);
-
+char				*process_s(c_contr *controller);
+char				*process_p(c_contr *controller);
+char				*process_x(c_contr *controller, char x);
+void				sub_process0(int nb, char *output, char c);
+char 				*append_char(char *b, char ta, int ct, int odr);
 
 #endif
