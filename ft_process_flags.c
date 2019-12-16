@@ -12,61 +12,78 @@
 
 #include "ft_printf.h"
 
-char	*append_char(char *base, char to_add, int count, int order)
+unsigned char	*append_char(unsigned char *base, char to_add, int count, int order)
 {
 	int		i;
-	char	*out;
-	char	*filler;
+	unsigned char	*out;
+	unsigned char	*filler;
 
 	i = -1;
-	count -= (int)ft_strlen(base);
-	if (!(filler = malloc(sizeof(char) * (count + 1))))
+	count -= (int)ft_ustrlen(base);
+	if (!(filler = malloc(sizeof(unsigned char) * (count + 1))))
 		return (NULL);
 	while (++i < count)
 		filler[i] = to_add;
 	filler[i] = '\0';
 	if (order == 1)
-		out = ft_strjoin(filler, base);
+		out = ft_ustrjoin(filler, base);
 	else
-		out = ft_strjoin(base, filler);
+		out = ft_ustrjoin(base, filler);
 	free(base);
 	free(filler);
 	return (out);
 }
 
-char	*process_0(c_contr *controller)
+unsigned char	*process_0(c_contr *controller)
 {
 	int		i;
-	char	*output;
+	unsigned char	*output;
 	char	out;
 	int		nb;
 
 	out = '0';
 	i = 0;
 	*(controller->pos) += 1;
+	
 	nb = ft_atoi(controller->str_in + *(controller->pos));
+	
 	while (ft_isdigit(controller->str_in[*(controller->pos) + i]))
 		i++;
+
+
 	if (controller->str_in[*(controller->pos)] == '*' && ++i)
 		nb = va_arg(*(controller->args), int);
+	
 	if (controller->str_in[*(controller->pos) + i] == '.')
 		out = ' ';
+	//printf("out ??\n");
 	*(controller->pos) += i;
 	i = *(controller->pos);
+	//printf("b4 proccess\n");
 	output = process_flag(controller);
+	//printf("AF proccess\n");
+	//printf("POS 1, i = |%c| \n", controller->str_in[i]);
 	if (nb == 0)
 		return (output);
+	//printf("POS 2, %s \n", output);
 	if (controller->str_in[i] == 'i' || controller->str_in[i] == 'd')
+	{
+		//printf("POS 3\n");
 		sub_process0(nb, output, out);
-	else if ((int)ft_strlen(output) < nb)
+	}	
+	else if ((int)ft_ustrlen(output) < nb)
+	{
+		//printf("POS 4\n");
 		output = append_char(output, out, nb, 1);
+	}
+	//printf("ENDPOS \n");
 	return (output);
 }
 
-char	*process_minus(c_contr *controller)
+unsigned char	*process_minus(c_contr *controller)
 {
 	int		i;
-	char	*output;
+	unsigned char	*output;
 	int		nb;
 
 	i = 0;
@@ -79,69 +96,78 @@ char	*process_minus(c_contr *controller)
 		i++;
 	*(controller->pos) += i;
 	output = process_flag(controller);
-	if ((int)ft_strlen(output) < nb)
+	if ((int)ft_ustrlen(output) < nb)
 		output = append_char(output, ' ', nb, 0);
 	return (output);
 }
 
-char	*process_dot(c_contr *controller)
+unsigned char	*process_dot(c_contr *controller)
 {
 	int		i;
-	char	*output;
-	char	*zeros;
+	unsigned char	*output;
+	unsigned char	*zeros;
 	int		cpt;
 	int		nb;
-	char	*tmp;
+	unsigned char	*tmp;
 
 	i = 0;
 	*(controller->pos) += 1;
 	nb = ft_atoi(controller->str_in + *(controller->pos));
-	while (ft_isdigit(controller->str_in[*(controller->pos) + i++]))
+	while (ft_isdigit(controller->str_in[*(controller->pos) + i]))
 		i++;
 	if (controller->str_in[*(controller->pos)] == '*' && ++i)
 		nb = va_arg(*(controller->args), int);
+	//printf("i = %d ?\n",i);
 	*(controller->pos) += i;
 	output = process_type(controller);
-	if (output == NULL || (output != NULL && output[0] == '%'))
+	
+	if (output == NULL)
+	{	
+	//	printf("la\n");
+		return (NULL);
+	}
+	//printf("la\n");
+	if(output != NULL && output[0] == '%')
 		return (output);
+	//printf("la\n");
 	if (controller->str_in[*(controller->pos) - 1] == 's' && nb >= 0 && i >= 1)
 	{
-		tmp = ft_substr(output, 0, nb);
+		tmp = ft_usubstr(output, 0, nb);
 		free(output);
 		output = tmp;
 	}
-	else if ((int)ft_strlen(output) <= nb)
+	else if ((int)ft_ustrlen(output) <= nb)
 	{
 		i = -1;
-		zeros = malloc(sizeof(char) * (nb - (int)ft_strlen(output) + 1));
-		cpt = nb - (int)ft_strlen(output);
+		zeros = malloc(sizeof(unsigned char) * (nb - (int)ft_ustrlen(output) + 1));
+		cpt = nb - (int)ft_ustrlen(output);
 		while (++i < cpt)
 			zeros[i] = '0';
 		zeros[i] = 0;
 		if (*output == '-')
 		{
-			tmp = ft_strjoin(zeros, output + 1);
+			tmp = ft_ustrjoin(zeros, output + 1);
 			free(output);
-			output = ft_strjoin("-0", tmp);
+			output = ft_ustrjoin((unsigned char *)"-0", tmp);
 			free(tmp);
 		}
 		else
 		{
-			tmp = ft_strjoin(zeros, output);
+			tmp = ft_ustrjoin(zeros, output);
 			free(output);
 			output = tmp;
 		}
 		free(zeros);
 	}
 	if (nb == 0 && output[0] == '0')
-		return (ft_strdup(""));
+		return (ft_ustrdup((unsigned char *)""));
 	return (output);
 }
 
-char	*process_nb(c_contr *controller)
+unsigned char	*process_nb(c_contr *controller)
 {
 	int		i;
-	char	*output;
+	unsigned char	*output;
 	int		cpt;
 	int		nb;
 
@@ -154,7 +180,7 @@ char	*process_nb(c_contr *controller)
 		nb = va_arg(*(controller->args), int);
 	*(controller->pos) += i;
 	output = process_flag(controller);
-	cpt = ft_abs(nb) - (int)ft_strlen(output);
+	cpt = ft_abs(nb) - (int)ft_ustrlen(output);
 	if (cpt > 0 && nb > 0)
 		output = append_char(output, ' ', ft_abs(nb), 1);
 	else if (cpt > 0)

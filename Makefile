@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 	
 SRCS = ft_printf.c ft_printf_utils.c \
-ft_process_flags.c ultoa.c 
+ft_process_flags.c ultoa.c unsigned.c
 
 LFTDIR = ./libft/
 
