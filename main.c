@@ -42,11 +42,13 @@ int main()
 // 	printf("Convertions test ; \n------------------------ \n");
 
 // 	printf("%%p test\n");
- 	printf(";%d\n",ft_printf("%c", 0));
-	printf(";%d\n",printf("%c", 0));
+ 	//printf(";%d\n",ft_printf("%c", 0));
+	//printf(";%d\n",printf("%c", 0));
 
 	printf(" ; %d\n",ft_printf("0%c", 0));
-	printf(" ; %d\n",printf("0%c", 0));
+	printf(" ; %d\n",printf("0%c", 160));
+	//	:q
+	printf(" ; %d\n",printf("0%c", 27));
 // 	printf(" ; %d\n",printf("%.*s", -3, "Hello")); 
 // 	printf(" ; %d\n",ft_printf("%.*s", -3, "Hello"));
 // 	//printf(" ; %d\n",printf("%.1s%", "")); 
