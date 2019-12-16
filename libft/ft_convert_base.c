@@ -24,7 +24,7 @@ void	ft_putnbr_base_rec(unsigned long a, char *bs, char *dt, unsigned long *p)
 
 void	ft_putnbr_base(unsigned long nbr, char *base, char *dt, unsigned long *nb)
 {
-	ft_strlen(base);
+	//ft_strlen(base);
 	ft_putnbr_base_rec(nbr, base, dt, nb);
 	ft_addto(dt, nb, '\0');
 }
@@ -52,21 +52,24 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	unsigned long		nb;
 	int		tmp;
 
+
+	//printf("OUTPUT = \n");
 	dest = 0;
 	if (!ft_base_is_valid(base_to) || !ft_base_is_valid(base_from))
 		return (NULL);
 	//if (!(nb = malloc(sizeof(unsigned long) * 1)))
 	//	return (0);
 	nb = 0;
+	
 	if (!nbr[0])
 	{
-		if (!(dest = malloc(sizeof(char) * 2)))
-			return (0);
-		dest[0] = '0';
-		dest[1] = '\0';
+		//if (!(dest = malloc(sizeof(char) * 2)))
+		//	return (0);
+		//dest[0] = '0';
+		//dest[1] = '\0';
 	//	free(nb);
 		//printf("this way\n");
-		return (dest);
+		return (ft_strdup("0"));
 	}
 	free(dest);
 	//printf("NB B4 %s\n",nbr);
@@ -80,9 +83,11 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 		return (0);
 	}
 	//printf("this way\n");
+	//printf("OUTPUT = %s\n", dest);
 	ft_putnbr_base(cache, base_to, dest, &nb);
 	//printf("OUTPUT = %s\n", dest);
 	//free(nb);
+	
 	return (dest);
 	//return 0;
 }

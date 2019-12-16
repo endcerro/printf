@@ -21,7 +21,6 @@ char *process_type(c_contr *controller)
 	char c;
 
 	output = NULL;
-
 	c = controller->str_in[*(controller->pos)];
 	if(c == 'd' || c == 'i')
 		output =  ft_itoa(va_arg(*(controller->args), int));
@@ -47,33 +46,26 @@ char *process_type(c_contr *controller)
 	{
 		temp = va_arg(*(controller->args), char*);
 		if(temp != NULL)
-		{
 			output = ft_strdup(temp);
-			//printf("%s\n",output );
-			//free(temp);
-		}
 		else
 			output = ft_strdup("(null)");
-		//free(temp);
 	}
 	else if(c == 'p')
 	{
-		temp = ft_convert_base(ft_ultoa(va_arg(*(controller->args), unsigned long)), "0123456789", "0123456789abcdef");
+		output = ft_ultoa(va_arg(*(controller->args), unsigned long));
+		temp = ft_convert_base(output, "0123456789", "0123456789abcdef");
+		free(output);
 		output = ft_strjoin("0x", temp);
 		free(temp);
 	}
 	else if(c == 'X' || c == 'x')
 	{	
 		temp = ft_ultoa((unsigned long)va_arg(*(controller->args), unsigned int));
-		if(c == 'x'){
+		if(c == 'x')
 			output = ft_convert_base(temp, "0123456789", "0123456789abcdef");
-			free(temp);
-		}
-		else{
+		else
 			output = ft_convert_base(temp, "0123456789", "0123456789ABCDEF");
-			free(temp);
-		}
-		
+		free(temp);
 	}
 	//Pas sur du &&
 	if(output == NULL)
@@ -113,11 +105,11 @@ char *process(c_contr *controller)
 	c_to_s[1] = '\0';
 	output = NULL;
 	*(controller->pos) += 1;
-	if ((controller->str_in)[*(controller->pos)] == '\0')
-	{
-		//printf("BS ZERO\n");
-		//	return NULL;	
-	}
+	// if ((controller->str_in)[*(controller->pos)] == '\0')
+	// {
+	// 	//printf("BS ZERO\n");
+	// 	//	return NULL;	
+	// }
 
 	if ((controller->str_in)[*(controller->pos) - 1] == '%')
 	{
