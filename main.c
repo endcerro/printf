@@ -41,8 +41,8 @@ int main()
 	//printf("%%p test\n");
 	//printf("%d\n",ft_printf("0%%c", 0));
 	//printf("%d\n",printf("0%%c", 0));
-	printf(" ; %d\n",printf("%.0%")); 
-	printf(" ; %d\n",ft_printf("%.0%"));
+	printf(" ; %d\n",printf("%-2%")); 
+	printf(" ; %d\n",ft_printf("%-2%"));
 
 	//printf(" ; %d\n",printf("%.1s%", "")); 
 	//printf(" ; %d\n",ft_printf("%.1s%", ""));

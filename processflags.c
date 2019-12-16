@@ -95,11 +95,14 @@ char *process_minus(c_contr *controller)
 		i++;
 	*(controller->pos) += i;
 	//printf("|%c|\n",controller->str_in[*(controller->pos)] );
-	output = process_type(controller);
+	output = process_flag(controller);
 	//printf("|%s|\n",output);
 	//printf("|%d|\n",nb );
 	if((int)ft_strlen(output) < nb)
+	{
+		//printf("here\n");
 		output = append_char(output,' ', nb, 0);
+	}
 	//printf("|%s|\n",output);
 	return(output);
 }
@@ -121,10 +124,12 @@ char	*process_dot(c_contr *controller)
 	int nb;
 	char *tmp;
 
+	//printf("process_dot\n");
+	//printf("|%c|\n",controller->str_in[*(controller->pos)]);
 	i = 0;
 	*(controller->pos) += 1;
 	output = NULL;
-
+	//printf("AZZ%c\n",controller->str_in[*(controller->pos)]);
 	//printf("%s\n",output );
 	if(controller->str_in[*(controller->pos)] == '*')
 	{
@@ -143,25 +148,32 @@ char	*process_dot(c_contr *controller)
 	*(controller->pos) += i;
 	int test = (controller->str_in[*(controller->pos)] == 's');
 	//printf("process_dot\n");
-	//printf("%s\n",output );
+	//printf("|%c|\n",(controller->str_in[*(controller->pos)]));
 	output = process_type(controller);
-	//printf("%s\n",output );
-	//printf("process_dot\n");
-	if(output[0] == '%')
+	//printf("after %s\n",output );
+	
+	if(output != NULL && output[0] == '%')
+	{
+	//	printf("here\n");
 		return output;
+	}
+	//printf("there\n");
 	//Dans le cas ou on rentre dnas test, what is going on
 	//printf("nb = %d\n",nb );
 	if(output == NULL)
 		return NULL;
+	//printf("ctla\n");
 	//printf("%s\n",output );
 	if(test)
 	{
+	//	printf("ctla\n");
 		//printf("ici\n");
 		output = ft_substr(output, 0, nb);
 	//	printf("|%s|\n",output);
 	}
 	else if((int)ft_strlen(output) <= nb)
 	{
+	//	printf("ctla\n");
 		//printf("ici ? \n");
 		i = -1;
 		zeros = malloc(sizeof(char) * ( nb - (int)ft_strlen(output) + 1 ));
@@ -191,7 +203,7 @@ char	*process_dot(c_contr *controller)
 	}
 		
 		///printf("case\n");
-	//printf("ctla\n");
+	
 	//printf("%s\n",output );
 	return(output);
 }
@@ -206,6 +218,7 @@ char *process_nb(c_contr *controller)
 	char *tmp;
 
 	//printf("nded\n");
+	//printf("process_nb\n");
 	i = 0;
 	output = NULL;
 	nb = ft_atoi(controller->str_in + *(controller->pos));

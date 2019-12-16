@@ -90,18 +90,28 @@ char *process_flag(c_contr *controller)
 		out = process_0(controller);
 	else if (c == '-')
 	{
+		//printf("aqui?\n");
 		//printf("why |%c|\n",(controller->str_in)[*(controller->pos)] );
 		out = process_minus(controller);
 	}
 	else if (isnumber(c))
+	{
+		//printf("aqui?\n");
 		out = process_nb(controller);
+	}
 	else if (c == '.')
+	{
+		//printf("aqui?\n");
 		out = process_dot(controller);
+	}
 	else if (c == '*')
+	{
+		//printf("aqui?\n");
 		out = process_nb(controller);
+	}
 	else
 	{
-	//	printf("aqui?\n");
+		//printf("aqui?\n");
 		out = process_type(controller);
 		
 	}
@@ -125,9 +135,17 @@ char *process(c_contr *controller)
 	//printf("|%s|\n", (controller->str_in));
 	*(controller->pos) += 1;
 	//printf("2|%d| |%c|\n", *(controller->pos) ,(controller->str_in)[*(controller->pos)]);
+	//printf("here\n");
+	if ((controller->str_in)[*(controller->pos)] == '\0')
+	{
+		//printf("BS ZERO\n");
+		return NULL;
+		
+	}
+
 	if ((controller->str_in)[*(controller->pos) - 1] == '%')
 	{
-		//printf("here\n");
+		//printf("%% foud\n");
 		if((controller->str_in)[*(controller->pos)] == '\0')
 		{
 		//	printf("estoy\n");
@@ -148,7 +166,7 @@ char *process(c_contr *controller)
 	output = ft_strjoin(tmp[0], tmp[1]);
 	if(tmp[0] != &(c_to_s[0]))
 		free(tmp[0]);
-	//free(tmp[1]);
+	free(tmp[1]);
 	//printf("OUT = %s\n",output );
 	return (output);
 }
