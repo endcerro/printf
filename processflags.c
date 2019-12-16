@@ -196,7 +196,7 @@ char	*process_dot(c_contr *controller)
 	{
 		//printf("i = %d\n",i);
 		//printf("ici\n");
-		if(nb >= 0 && i == 1)
+		if(nb >= 0 && i >= 1)
 			output = ft_substr(output, 0, nb);
 	//	printf("|%s|\n",output);
 	}
