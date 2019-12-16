@@ -25,6 +25,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		sz += ft_strlen(s2);
 	if (!s1 && !s2)
 		return (0);
+	//printf("sz = %d\n",sz );
+
 	if (!(out = malloc(sizeof(char) * sz)))
 		return (0);
 	cp = out;

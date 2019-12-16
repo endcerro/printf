@@ -11,18 +11,15 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
-char	*ft_strdup(const char *s1)
+#include <stdio.h>
+char	*ft_strdup(char *s1)
 {
-	printf("NNULL\n");
 	int		i;
 	char	*p;
 	if(s1 == NULL)
 	{
-		printf("NNULL\n");
 		return NULL;
 	}
-	printf("NNULL\n");
 	if (!(p = malloc(sizeof(char) * (ft_strlen(s1) + 1))))
 		return (0);
 	i = -1;

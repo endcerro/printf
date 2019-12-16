@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 void	ft_putnbr_base_rec(unsigned long a, char *bs, char *dt, unsigned long *p)
 {

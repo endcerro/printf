@@ -75,3 +75,5 @@ int					mchb_strl(char nb, char *base);
 void				ft_addto(char *st, unsigned long *nb, char c);
 
 #endif
+
+

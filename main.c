@@ -2,7 +2,7 @@
 #include <limits.h>
 int main()
 {
-	char *test = "Sample text";
+	//char *test = "Sample text";
 	//test = malloc(sizeof(char));
 	//ft_printf("%05.4d\n", 16);
 	//printf("%05.4d\n", 16);
@@ -29,7 +29,7 @@ int main()
 	// ft_printf("%20.30s\n", "0123456789abcdefghijklmnopqrstuv");
 	// printf("%20.30s\n", "0123456789abcdefghijklmnopqrstuv");
 
-	
+	//printf("%s\n", );
 
 
 //	printf("%.20d \n", 1205);
@@ -38,10 +38,36 @@ int main()
 
 	printf("Convertions test ; \n------------------------ \n");
 
-	printf("%%p test\n");
-	printf("%d\n",ft_printf("ft_printf ; %p : ", test));
-	printf("%d\n",printf("printf    ; %p : ",test ));
+	//printf("%%p test\n");
+	//printf("%d\n",ft_printf("0%%c", 0));
+	//printf("%d\n",printf("0%%c", 0));
+	printf(" ; %d\n",printf("%.0%")); 
+	printf(" ; %d\n",ft_printf("%.0%"));
 
+	//printf(" ; %d\n",printf("%.1s%", "")); 
+	//printf(" ; %d\n",ft_printf("%.1s%", ""));
+
+	//printf(" ; %d\n",printf("%.3s%", "")); 
+	//printf(" ; %d\n",ft_printf("%.3s%", ""));
+
+	//printf(" ; %d\n",printf("%.2%")); 
+	//printf(" ; %d\n",ft_printf("%.2%"));
+
+	//printf(" ; %d\n",printf("%02i", 0)); 
+	//printf(" ; %d\n",ft_printf("%02i", 0));
+
+	//printf("%02i", 0);
+	//ft_printf("%02i", 0);
+
+	//printf("%c", 0); 
+	//ft_printf("%c", 0);
+
+	//printf("%d\n",printf("%s", "Hello")); 
+	//printf("%d\n",ft_printf("%s", "Hello"));
+
+
+	//printf("printf    ; %c : ",0 );
+	//printf("printf    ; %c : ",0 );
 	// ft_printf("------------------------ \n%%x test\n");
 	// printf("%d\n",ft_printf("ft_printf ; %x : ", 1253));
 	// printf("%d\n",printf("printf    ; %x : ",1253 ));
