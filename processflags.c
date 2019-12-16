@@ -41,7 +41,11 @@ char *process_0(c_contr *controller)
 	while(isnumber(controller->str_in[*(controller->pos) + i]))
 		i++;
 	if(controller->str_in[*(controller->pos)] == '*' && ++i)
-		nb = va_arg(*(controller->args), int);	
+	{
+
+		nb = va_arg(*(controller->args), int);
+		//printf("case, nb = %d \n",nb );
+	}
 	if(controller->str_in[*(controller->pos) + i] == '.')
 		out = ' ';
 	*(controller->pos) += i;
@@ -50,7 +54,19 @@ char *process_0(c_contr *controller)
 	output = process_flag(controller);
 	if(controller->str_in[i] == 'i' || controller->str_in[i] == 'd')
 	{
-		if(output[0] == '-')
+		//printf("case, nb = %d \n",nb );
+		if(nb < 0)
+		{
+			if((int)ft_strlen(output) < abs(nb))
+			{
+				//printf("here |%s|\n", output);
+				//output[0] = '0';
+				output = append_char(output, ' ', abs(nb), 0); 
+				//printf("here |%s|\n", output);
+				//output[0] = '-';
+			}
+		}
+		else if(output[0] == '-')
 		{	
 			if((int)ft_strlen(output) < nb)
 			{
@@ -59,12 +75,21 @@ char *process_0(c_contr *controller)
 				output[0] = '-';
 			}
 		}
+		else if(nb == 0){
+			return output;
+		}
 		else
+		{
+			//printf("CASE\n");
 			output = append_char(output,out, nb, 1);	
-		//printf("CASE\n");
+		}
+		
 	}	
 	else if((int)ft_strlen(output) < nb)
+	{
 		output = append_char(output,out, nb, 1); 
+	}
+	//printf("here |%s|\n", output);
 	return(output);
 }
 
@@ -86,10 +111,13 @@ char *process_minus(c_contr *controller)
 	{
 		nb = va_arg(*(controller->args), int);
 		i++;
-		//printf("the case\n");
+		nb = abs(nb);
+		//printf("the case %d \n", nb);
 	}
-	//printf("|%d|\n",nb );
-	nb = ft_atoi(controller->str_in + *(controller->pos));
+	else
+		nb = ft_atoi(controller->str_in + *(controller->pos));
+	//printf("|%d|\n",nb )
+	//printf("the case %d \n", nb);
 	//printf("|%c|\n",controller->str_in[*(controller->pos)] );
 	while(isnumber(controller->str_in[*(controller->pos) + i]))
 		i++;
@@ -166,9 +194,10 @@ char	*process_dot(c_contr *controller)
 	//printf("%s\n",output );
 	if(test)
 	{
-	//	printf("ctla\n");
+		//printf("i = %d\n",i);
 		//printf("ici\n");
-		output = ft_substr(output, 0, nb);
+		if(nb >= 0 && i == 1)
+			output = ft_substr(output, 0, nb);
 	//	printf("|%s|\n",output);
 	}
 	else if((int)ft_strlen(output) <= nb)

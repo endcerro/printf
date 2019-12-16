@@ -139,7 +139,7 @@ char *process(c_contr *controller)
 	if ((controller->str_in)[*(controller->pos)] == '\0')
 	{
 		//printf("BS ZERO\n");
-		return NULL;
+		//	return NULL;
 		
 	}
 
