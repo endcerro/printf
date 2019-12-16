@@ -65,7 +65,7 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 		dest[0] = '0';
 		dest[1] = '\0';
 	//	free(nb);
-		printf("this way\n");
+		//printf("this way\n");
 		return (dest);
 	}
 	free(dest);
@@ -75,11 +75,11 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	tmp = size_int_base(cache, ft_strlen(base_to));
 	if (!(dest = malloc(sizeof(char) * tmp + 1)))
 	{
-		printf("this way\n");
+		//printf("this way\n");
 	//	free(nb)
 		return (0);
 	}
-	printf("this way\n");
+	//printf("this way\n");
 	ft_putnbr_base(cache, base_to, dest, &nb);
 	//printf("OUTPUT = %s\n", dest);
 	//free(nb);
