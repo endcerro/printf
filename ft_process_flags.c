@@ -95,17 +95,14 @@ char	*process_dot(c_contr *controller)
 
 	i = 0;
 	*(controller->pos) += 1;
-	output = NULL;
 	nb = ft_atoi(controller->str_in + *(controller->pos));
-	while (ft_isdigit(controller->str_in[*(controller->pos) + i]))
+	while (ft_isdigit(controller->str_in[*(controller->pos) + i++]))
 		i++;
 	if (controller->str_in[*(controller->pos)] == '*' && ++i)
 		nb = va_arg(*(controller->args), int);
 	*(controller->pos) += i;
 	output = process_type(controller);
-	if (output == NULL)
-		return (NULL);
-	if (output != NULL && output[0] == '%')
+	if (output == NULL || (output != NULL && output[0] == '%'))
 		return (output);
 	if (controller->str_in[*(controller->pos) - 1] == 's' && nb >= 0 && i >= 1)
 	{

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 char	*process_type(c_contr *controller)
 {
@@ -35,8 +36,13 @@ char	*process_type(c_contr *controller)
 		output = process_p(controller);
 	else if (c == 'X' || c == 'x')
 		output = process_x(controller, c);
-	if (output == NULL)
+	//else
+	//	*(controller->len) += 1;
+	if ( c != 's' && output[0] == '\0')
+	{
+		//printf("here\n");
 		*(controller->len) += 1;
+	}
 	*(controller->pos) += 1;
 	return (output);
 }
@@ -46,6 +52,7 @@ char	*process_flag(c_contr *controller)
 	char c;
 
 	c = (controller->str_in)[*(controller->pos)];
+	//*(controller->len) += 1;
 	if (c == '0')
 		return (process_0(controller));
 	else if (c == '-')
@@ -78,12 +85,16 @@ char	*process(c_contr *controller)
 			tmp[0] = process_flag(controller);
 	}
 	else if ((tmp[0] = &(c_to_s[0])))
+	{
 		c_to_s[0] = (controller->str_in)[*(controller->pos) - 1];
+
+	}
 	tmp[1] = process(controller);
 	output = ft_strjoin(tmp[0], tmp[1]);
 	if (tmp[0] != &(c_to_s[0]))
 		free(tmp[0]);
 	free(tmp[1]);
+	
 	return (output);
 }
 
@@ -105,6 +116,11 @@ int		ft_printf(const char *str_in, ...)
 	controller->pos = &(vars[1]);
 	to_print = process(controller);
 	ft_putstr_fd(to_print, 1);
+	if(to_print[0] == '\0')
+	{
+		//vars[0] +=
+		//printf("here");
+	}
 	vars[0] += ft_strlen(to_print);
 	free(to_print);
 	free(controller);
