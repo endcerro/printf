@@ -42,13 +42,20 @@ int main()
 // 	printf("Convertions test ; \n------------------------ \n");
 
 // 	printf("%%p test\n");
- 	printf(";%d\n",ft_printf("%c", 0));
-	printf(";%d\n",printf("%c", 0));
-
-	printf(" ; %d\n",ft_printf("0%c", 0));
-	printf(" ; %d\n",printf("0%c", 0));
-// 	printf(" ; %d\n",printf("%.*s", -3, "Hello")); 
-// 	printf(" ; %d\n",ft_printf("%.*s", -3, "Hello"));
+ 	//printf(";%d\n",ft_printf(" 60%14cCJP5SJofg%.1s", '\0', "Ov5Kgkse8TuPy7OQb6n1APg2nRpV89SItmRSEyp2CC8eG38KJ7UtoPwKfzpL9KfNd0vf9EW8V puserlbSGQSudd"));
+	//printf(";%d\n",printf(" 60%14cCJP5SJofg%.1s", '\0', "Ov5Kgkse8TuPy7OQb6n1APg2nRpV89SItmRSEyp2CC8eG38KJ7UtoPwKfzpL9KfNd0vf9EW8V puserlbSGQSudd"));
+	//ft_printf("0\n");
+	unsigned char test[20];
+	test[0] = '0';
+	test[1] = 160;
+	test[2] = 'A';
+	test[3] = 'D';
+	test[4] = 0;
+	printf("%s\n",test );
+	printf("%d\n",test[1]);
+	//printf(" ; %d\n",ft_printf("0%c", 0));
+	//printf(" ; %d\n",printf("0%c fin", 161));
+	//write(1,"a\0\n",3);
 // 	//printf(" ; %d\n",printf("%.1s%", "")); 
 // 	printf(" ; %d\n",ft_printf("%.1s%", "a"));
 

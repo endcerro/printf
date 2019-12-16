@@ -59,7 +59,13 @@ char	*process_0(c_contr *controller)
 	if (controller->str_in[i] == 'i' || controller->str_in[i] == 'd')
 		sub_process0(nb, output, out);
 	else if ((int)ft_strlen(output) < nb)
+	{
 		output = append_char(output, out, nb, 1);
+	}
+	else if((int)ft_strlen(output) == nb)
+	{
+		//printf("HERE\n");
+	}
 	return (output);
 }
 
@@ -79,8 +85,12 @@ char	*process_minus(c_contr *controller)
 		i++;
 	*(controller->pos) += i;
 	output = process_flag(controller);
+	if ((int)ft_strlen(output) == 0)
+	{
+		//printf("EDGE CASE\n");
+	}
 	if ((int)ft_strlen(output) < nb)
-		output = append_char(output, ' ', nb, 0);
+		output = append_char(output, ' ', nb - 1, 0);
 	return (output);
 }
 
@@ -96,7 +106,7 @@ char	*process_dot(c_contr *controller)
 	i = 0;
 	*(controller->pos) += 1;
 	nb = ft_atoi(controller->str_in + *(controller->pos));
-	while (ft_isdigit(controller->str_in[*(controller->pos) + i++]))
+	while (ft_isdigit(controller->str_in[*(controller->pos) + i]))
 		i++;
 	if (controller->str_in[*(controller->pos)] == '*' && ++i)
 		nb = va_arg(*(controller->args), int);
@@ -154,10 +164,18 @@ char	*process_nb(c_contr *controller)
 		nb = va_arg(*(controller->args), int);
 	*(controller->pos) += i;
 	output = process_flag(controller);
+	//printf("len = %d\n", (int)ft_strlen(output));
 	cpt = ft_abs(nb) - (int)ft_strlen(output);
 	if (cpt > 0 && nb > 0)
-		output = append_char(output, ' ', ft_abs(nb), 1);
+	{	
+		if(cpt == nb)
+			output = append_char(output, ' ', ft_abs(nb) - 1, 1);
+		else
+			output = append_char(output, ' ', ft_abs(nb), 1);
+		//printf("nb = %d cpt = %d \n",nb,cpt );
+		
+	}
 	else if (cpt > 0)
-		output = append_char(output, ' ', ft_abs(nb), 0);
+		output = append_char(output, ' ', ft_abs(nb) - 1, 0);
 	return (output);
 }

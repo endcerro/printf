@@ -53,6 +53,7 @@ all : $(NAME)
 	${CC} ${CFLAGS} -I ./ -c $< -o ${<:.c=.o}
 
 $(NAME): ${OBJS} ${LFTOBJS}
+	cd libft && make && cp libft.a ../.
 	ar rcs $(NAME) ${OBJS} ${LFTOBJS} ${HEADER}
 
 #bonus: ${BNSOBJ} ${OBJS} ${HEADER}
