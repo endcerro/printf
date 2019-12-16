@@ -31,6 +31,8 @@ unsigned char	*append_char(unsigned char *base, char to_add, int count, int orde
 		out = ft_ustrjoin(base, filler);
 	free(base);
 	free(filler);
+	//base = NULL;
+	//filler = NULL;
 	return (out);
 }
 
@@ -139,7 +141,8 @@ unsigned char	*process_dot(c_contr *controller)
 	else if ((int)ft_ustrlen(output) <= nb)
 	{
 		i = -1;
-		zeros = malloc(sizeof(unsigned char) * (nb - (int)ft_ustrlen(output) + 1));
+		if(!(zeros = malloc(sizeof(unsigned char) * (nb - (int)ft_ustrlen(output) + 1))))
+			return 0;
 		cpt = nb - (int)ft_ustrlen(output);
 		while (++i < cpt)
 			zeros[i] = '0';

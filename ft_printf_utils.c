@@ -26,6 +26,7 @@ unsigned char	*process_p(c_contr *controller)
 	output = ft_strjoin("0x", tmp);
 	free(tmp);
 	outuns = ft_ustrdup((unsigned char *)output);
+	free(output);
 	return (outuns);
 }
 

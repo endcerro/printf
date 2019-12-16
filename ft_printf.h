@@ -39,7 +39,7 @@ unsigned char				*append_char(unsigned char *base, char to_add, int count, int o
 void 						ft_putustr(unsigned char* in);
 int 						ft_ustrlen(unsigned char *str);
 unsigned char				*ft_ustrdup(unsigned char *s1);
-unsigned char				*ft_ustrjoin(unsigned char *s1, unsigned char *s2);
+unsigned char				*ft_ustrjoin(const unsigned char *s1, const unsigned char *s2);
 unsigned char				*ft_usubstr(unsigned char *s, unsigned int start, size_t len);
 
 #endif

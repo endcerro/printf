@@ -39,7 +39,15 @@ unsigned char	*process_type(c_contr *controller)
 	{
 		output = ft_ustrdup((unsigned char*)"%");
 		if (c == 'c')
+		{
 			output[0] = va_arg(*(controller->args), int);
+			if(output[0] == 0)
+			{
+				output[0] = 160;	
+				//printf("case\n");
+			}
+		}
+		
 	}
 	else if (c == 's')
 		output = process_s(controller);
@@ -128,7 +136,10 @@ unsigned char	*process(c_contr *controller)
 	tmp[1] = process(controller);
 	output = ft_ustrjoin(tmp[0], tmp[1]);
 	if (tmp[0] != &(c_to_s[0]))
+	{
+		//printf("THIs is here\n");
 		free(tmp[0]);
+	}
 	free(tmp[1]);
 	
 	return (output);
