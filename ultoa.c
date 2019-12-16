@@ -43,6 +43,6 @@ char			*ft_ultoa(unsigned long n)
 	 	n -= n / ft_powu(10, len - i) * ft_powu(10, len - i);
 	 	i++;
 	}
-	 out[indxo] = '\0';
+	out[indxo] = '\0';
 	return (out);
 }

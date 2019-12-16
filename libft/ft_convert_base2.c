@@ -66,9 +66,9 @@ unsigned long		clean(char *nb, char *base, char *dest)
 	j = 0;
 	while (mchb_strl(nb[i], base) > -1 && nb[i])
 	{
-		dest[j] = nb[i];
-		j++;
-		i++;
+		dest[j++] = nb[i++];
+		//j++;
+		//i++;
 	}
 	dest[j] = '\0';
 	return (nbminus);

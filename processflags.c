@@ -144,7 +144,6 @@ char	*process_star(c_contr *controller)
 
 char	*process_dot(c_contr *controller)
 {
-	
 	int i;
 	char *output;
 	char *zeros;
@@ -152,13 +151,9 @@ char	*process_dot(c_contr *controller)
 	int nb;
 	char *tmp;
 
-	//printf("process_dot\n");
-	//printf("|%c|\n",controller->str_in[*(controller->pos)]);
 	i = 0;
 	*(controller->pos) += 1;
 	output = NULL;
-	//printf("AZZ%c\n",controller->str_in[*(controller->pos)]);
-	//printf("%s\n",output );
 	if(controller->str_in[*(controller->pos)] == '*')
 	{
 		nb = va_arg(*(controller->args), int);
@@ -169,41 +164,25 @@ char	*process_dot(c_contr *controller)
 		nb = ft_atoi(controller->str_in + *(controller->pos));
 		while(isnumber(controller->str_in[*(controller->pos) + i]))
 			i++;
-		//printf(" i = %d\n", i);
-		//printf("nb = %d\n",nb );
 	}
-
 	*(controller->pos) += i;
 	int test = (controller->str_in[*(controller->pos)] == 's');
-	//printf("process_dot\n");
-	//printf("|%c|\n",(controller->str_in[*(controller->pos)]));
 	output = process_type(controller);
-	//printf("after %s\n",output );
-	
 	if(output != NULL && output[0] == '%')
-	{
-	//	printf("here\n");
 		return output;
-	}
-	//printf("there\n");
-	//Dans le cas ou on rentre dnas test, what is going on
-	//printf("nb = %d\n",nb );
 	if(output == NULL)
 		return NULL;
-	//printf("ctla\n");
-	//printf("%s\n",output );
 	if(test)
 	{
-		//printf("i = %d\n",i);
-		//printf("ici\n");
 		if(nb >= 0 && i >= 1)
-			output = ft_substr(output, 0, nb);
-	//	printf("|%s|\n",output);
+		{
+			tmp = ft_substr(output, 0, nb);
+			free(output);
+			output = tmp; 
+		}
 	}
 	else if((int)ft_strlen(output) <= nb)
 	{
-	//	printf("ctla\n");
-		//printf("ici ? \n");
 		i = -1;
 		zeros = malloc(sizeof(char) * ( nb - (int)ft_strlen(output) + 1 ));
 		cpt = nb - (int)ft_strlen(output);
@@ -212,7 +191,6 @@ char	*process_dot(c_contr *controller)
 		zeros[i] = 0;
 		if(*output == '-')
 		{
-	//		printf("chelou zone\n");
 			tmp = ft_strjoin(zeros,output+1);
 			free(output);
 			output = ft_strjoin("-0",tmp);
@@ -223,17 +201,14 @@ char	*process_dot(c_contr *controller)
 			tmp = ft_strjoin(zeros,output);
 			free(output);
 			output = tmp;
+			//free(tmp);
 		}
 		free(zeros);
 	}
-	if(nb == 0 && output[0] == '0'){
-		//printf("here\n");
+	if(nb == 0 && output[0] == '0')
+	{
 		return (ft_strdup(""));
 	}
-		
-		///printf("case\n");
-	
-	//printf("%s\n",output );
 	return(output);
 }
 
