@@ -28,14 +28,7 @@ char	*process_type(c_contr *controller)
 	{
 		output = ft_strdup("%");
 		if (c == 'c')
-		{
-			output[0] = va_arg(*(controller->args),unsigned int);
-			//if(output[0] = '\0')
-				//output[0] = 160;
-			//return(output);
-			//printf("|%c|\n",output[0]);
-			//printf("|%c|\n",0);
-		}
+			output[0] = va_arg(*(controller->args), int);
 	}
 	else if (c == 's')
 		output = process_s(controller);
@@ -51,7 +44,6 @@ char	*process_type(c_contr *controller)
 		*(controller->len) += 1;
 	}
 	*(controller->pos) += 1;
-	//printf("|%c|\n",output[0]);
 	return (output);
 }
 
@@ -72,11 +64,7 @@ char	*process_flag(c_contr *controller)
 	else if (c == '*')
 		return (process_nb(controller));
 	else
-	{
-		char *output =process_type(controller);
-		//printf("|%c|\n",output[0]);
-		return (output);
-	}
+		return (process_type(controller));
 }
 
 char	*process(c_contr *controller)
@@ -95,10 +83,12 @@ char	*process(c_contr *controller)
 		tmp[0] = NULL;
 		if ((controller->str_in)[*(controller->pos)] != '\0')
 			tmp[0] = process_flag(controller);
-		//printf("|%c|\n",tmp[0][0]);
 	}
 	else if ((tmp[0] = &(c_to_s[0])))
+	{
 		c_to_s[0] = (controller->str_in)[*(controller->pos) - 1];
+
+	}
 	tmp[1] = process(controller);
 	output = ft_strjoin(tmp[0], tmp[1]);
 	if (tmp[0] != &(c_to_s[0]))
@@ -125,7 +115,7 @@ int		ft_printf(const char *str_in, ...)
 	controller->len = &(vars[0]);
 	controller->pos = &(vars[1]);
 	to_print = process(controller);
-	ft_putstr_fd((unsigned char*)to_print, 1);
+	ft_putstr_fd(to_print, 1);
 	if(to_print[0] == '\0')
 	{
 		//vars[0] +=
