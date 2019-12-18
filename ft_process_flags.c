@@ -20,7 +20,7 @@ unsigned char	*append_char(unsigned char *base, char to_add, int count, int orde
 
 	i = -1;
 	count -= (int)ft_ustrlen(base);
-	if (!(filler = malloc(sizeof(unsigned char) * (count + 1))))
+	if (!(filler = malloc(sizeof(unsigned char) * (ft_abs(count) + 1))))
 		return (NULL);
 	while (++i < count)
 		filler[i] = to_add;
@@ -29,8 +29,8 @@ unsigned char	*append_char(unsigned char *base, char to_add, int count, int orde
 		out = ft_ustrjoin(filler, base);
 	else
 		out = ft_ustrjoin(base, filler);
-	//free(base);
-	//free(filler);
+	free(base);
+	free(filler);
 	//base = NULL;
 	//filler = NULL;
 	return (out);
