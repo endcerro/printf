@@ -1,5 +1,5 @@
-#include "ft_printf.h"
-#include "libft.h"
+#include "header/ft_printf.h"
+#include "libft/libft.h"
 #include <stdio.h>
 #include <limits.h>
 int main()
@@ -48,8 +48,9 @@ int main()
 	//printf(" ; %d\n",ft_printf("%i%cVb%0*dCfjT9g4z%-.*d8C8O3", 0, '\0', -6, -1962375702, 9, 0));
 	//printf(" ; %d\n",printf("%i%cVb%0*dCfjT9g4z%-.*d8C8O3", 0, '\0', -6, -1962375702, 9, 0));
 
-	printf(" ; %d\n",printf("PxDC0A9YJOko%-14u%-*.3X%0*.0d%012i%-19X", 0, -2, 2147483647, -7, 0, 200599094, 2147483647));
-	printf(" ; %d\n",ft_printf("PxDC0A9YJOko%-14u%-*.3X%0*.0d%012i%-19X", 0, -2, 2147483647, -7, 0, 200599094, 2147483647));
+	//printf(" ; %d\n",printf("PxDC0A9YJOko%-14u%-*.3X%0*.0d%012i%-19X", 0, -2, 2147483647, -7, 0, 200599094, 2147483647));
+	printf(" ; %d\n",ft_printf("%-*.3X%0*.0d%012i%-19X"
+		, -2, 2147483647, -7, 0, 200599094, 2147483647));
 	//	:q
 	//printf(" ; %d\n",printf("0%c", 27));
 // 	printf(" ; %d\n",printf("%.*s", -3, "Hello")); 

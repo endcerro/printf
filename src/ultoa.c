@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ultoa.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edal--ce <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/18 18:29:44 by edal--ce          #+#    #+#             */
+/*   Updated: 2019/12/18 18:29:45 by edal--ce         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static unsigned long		getlen(unsigned long n)
@@ -39,9 +51,9 @@ char						*ft_ultoa(unsigned long n)
 		return (0);
 	while (i < len)
 	{
-	 	out[indxo++] = (n / ft_powu(10, len - i)) + '0';
-	 	n -= n / ft_powu(10, len - i) * ft_powu(10, len - i);
-	 	i++;
+		out[indxo++] = (n / ft_powu(10, len - i)) + '0';
+		n -= n / ft_powu(10, len - i) * ft_powu(10, len - i);
+		i++;
 	}
 	out[indxo] = '\0';
 	return (out);

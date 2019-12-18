@@ -12,18 +12,20 @@
 
 #include "ft_printf.h"
 
-unsigned char	*append_char(unsigned char *base, char to_add, int count, int order)
+
+
+unsigned char	*append_char(unsigned char *base, char t_a, int cpt, int order)
 {
-	int		i;
+	int				i;
 	unsigned char	*out;
 	unsigned char	*filler;
 
 	i = -1;
-	count -= (int)ft_ustrlen(base);
-	if (!(filler = malloc(sizeof(unsigned char) * (ft_abs(count) + 1))))
+	cpt -= (int)ft_ustrlen(base);
+	if (!(filler = malloc(sizeof(unsigned char) * (ft_abs(cpt) + 1))))
 		return (NULL);
-	while (++i < count)
-		filler[i] = to_add;
+	while (++i < cpt)
+		filler[i] = t_a;
 	filler[i] = '\0';
 	if (order == 1)
 		out = ft_ustrjoin(filler, base);
@@ -31,66 +33,43 @@ unsigned char	*append_char(unsigned char *base, char to_add, int count, int orde
 		out = ft_ustrjoin(base, filler);
 	free(base);
 	free(filler);
-	//base = NULL;
-	//filler = NULL;
 	return (out);
 }
 
 unsigned char	*process_0(c_contr *controller)
 {
-	int		i;
 	unsigned char	*output;
-	char	out;
-	int		nb;
+	int				i;
+	char			out;
+	int				nb;
 
 	out = '0';
 	i = 0;
 	*(controller->pos) += 1;
-	
 	nb = ft_atoi(controller->str_in + *(controller->pos));
-	
 	while (ft_isdigit(controller->str_in[*(controller->pos) + i]))
 		i++;
-
-
 	if (controller->str_in[*(controller->pos)] == '*' && ++i)
 		nb = va_arg(*(controller->args), int);
-	
 	if (controller->str_in[*(controller->pos) + i] == '.')
 		out = ' ';
-	//printf("out = %d\n", out);
 	*(controller->pos) += i;
 	i = *(controller->pos);
-	//printf("b4 proccess\n");
 	output = process_flag(controller);
-	//printf("AF proccess\n");
-	//printf("POS 1, i = |%c| \n", controller->str_in[i]);
 	if (nb == 0)
 		return (output);
-	//printf("POS 2, %s \n", output);
 	if (controller->str_in[i] == 'i' || controller->str_in[i] == 'd')
-	{
-
-		//printf("POS 3\n");
-		//printf("c = %s\n", output);
 		sub_process0(nb, &output, out);
-		//printf("|%s|\n",output );
-
-	}	
 	else if ((int)ft_ustrlen(output) < nb + 1)
-	{
-		//printf("POS 4\n");
 		output = append_char(output, out, nb, 1);
-	}
-	//printf("ENDPOS \n");
 	return (output);
 }
 
 unsigned char	*process_minus(c_contr *controller)
 {
-	int		i;
 	unsigned char	*output;
-	int		nb;
+	int				i;
+	int				nb;
 
 	i = 0;
 	*(controller->pos) += 1;
@@ -107,48 +86,18 @@ unsigned char	*process_minus(c_contr *controller)
 	return (output);
 }
 
-unsigned char	*process_dot(c_contr *controller)
+unsigned char *sub_process_dot(unsigned char *output, int nb)
 {
-	int		i;
-	unsigned char	*output;
-	unsigned char	*zeros;
-	int		cpt;
-	int		nb;
-	unsigned char	*tmp;
+	int i;
+	unsigned char *zeros;
+	unsigned char *tmp;
 
-	i = 0;
-	*(controller->pos) += 1;
-	nb = ft_atoi(controller->str_in + *(controller->pos));
-	while (ft_isdigit(controller->str_in[*(controller->pos) + i]))
-		i++;
-	if (controller->str_in[*(controller->pos)] == '*' && ++i)
-		nb = va_arg(*(controller->args), int);
-	//printf("i = %d ?\n",i);
-	*(controller->pos) += i;
-	output = process_type(controller);
-	
-	if (output == NULL)
-	{	
-	//	printf("la\n");
-		return (NULL);
-	}
-	//printf("la\n");
-	if(output != NULL && output[0] == '%')
-		return (output);
-	//printf("la\n");
-	if (controller->str_in[*(controller->pos) - 1] == 's' && nb >= 0 && i >= 1)
-	{
-		tmp = ft_usubstr(output, 0, nb);
-		free(output);
-		output = tmp;
-	}
-	else if ((int)ft_ustrlen(output) <= nb)
+	if ((int)ft_ustrlen(output) <= nb)
 	{
 		i = -1;
-		if(!(zeros = malloc(sizeof(unsigned char) * (nb - (int)ft_ustrlen(output) + 1))))
-			return 0;
-		cpt = nb - (int)ft_ustrlen(output);
-		while (++i < cpt)
+		if (!(zeros = malloc(sizeof(unsigned char) * (nb - (int)ft_ustrlen(output) + 1))))
+			return (0);
+		while (++i < (nb - (int)ft_ustrlen(output)))
 			zeros[i] = '0';
 		zeros[i] = 0;
 		if (*output == '-')
@@ -167,16 +116,48 @@ unsigned char	*process_dot(c_contr *controller)
 		free(zeros);
 	}
 	if (nb == 0 && output[0] == '0')
+	{
+		free(output);
 		return (ft_ustrdup((unsigned char *)""));
+	}
+	return (output);
+}
+
+unsigned char	*process_dot(c_contr *controller)
+{
+	int				i;
+	unsigned char	*output;
+	int				nb;
+	unsigned char	*tmp;
+
+	i = 0;
+	*(controller->pos) += 1;
+	nb = ft_atoi(controller->str_in + *(controller->pos));
+	while (ft_isdigit(controller->str_in[*(controller->pos) + i]))
+		i++;
+	if (controller->str_in[*(controller->pos)] == '*' && ++i)
+		nb = va_arg(*(controller->args), int);
+	*(controller->pos) += i;
+	output = process_type(controller);
+	if (output == NULL)
+		return (NULL);
+	if (output[0] == '%')
+		return (output);
+	if (controller->str_in[*(controller->pos) - 1] == 's' && nb >= 0 && i >= 1)
+		tmp = ft_usubstr(output, 0, nb);
+	else
+		return(sub_process_dot(output, nb));
+	free(output);
+	output = tmp;
 	return (output);
 }
 
 unsigned char	*process_nb(c_contr *controller)
 {
-	int		i;
+	int				i;
 	unsigned char	*output;
-	int		cpt;
-	int		nb;
+	int				cpt;
+	int				nb;
 
 	i = 0;
 	output = NULL;
