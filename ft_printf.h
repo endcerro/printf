@@ -34,7 +34,7 @@ unsigned char				*process_star(c_contr *controller);
 unsigned char				*process_s(c_contr *controller);
 unsigned char				*process_p(c_contr *controller);
 unsigned char				*process_x(c_contr *controller, char x);
-void						sub_process0(int nb, unsigned char **output, char c);
+void						sub_process0(int nb, unsigned char *output, char c);
 unsigned char				*append_char(unsigned char *base, char to_add, int count, int order);
 void 						ft_putustr(unsigned char* in);
 int 						ft_ustrlen(unsigned char *str);
