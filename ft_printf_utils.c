@@ -44,16 +44,29 @@ unsigned char	*process_x(c_contr *controller, char x)
 	return (output);
 }
 
-void	sub_process0(int nb, unsigned char *output, char c)
+void	sub_process0(int nb, unsigned char **output, char c)
 {
-	if(nb < 0 && ((int)ft_ustrlen(output) < ft_abs(nb)))
-		output = append_char(output, ' ', ft_abs(nb), 0); 
-	else if(output[0] == '-' && (int)ft_ustrlen(output) < nb)
+	//printf("c = %d nb = |%d| s = |%s|\n",c, nb ,output );
+	//printf("nb = %d, len = %d, abs = %d \n",nb,(int)ft_ustrlen(output), ft_abs(nb)  );
+	//char *tmp;
+	if(nb < 0 && ((int)ft_ustrlen(*output) < ft_abs(nb)))
 	{
-		output[0] = '0';
-		output = append_char(output, c, nb, 1); 
-		output[0] = '-';
+		//printf("1\n");
+		*output = append_char(*output, ' ', ft_abs(nb), 0); 
+	}
+	else if(*output[0] == '-' && (int)ft_ustrlen(*output) < nb)
+	{
+		//printf("2\n");
+		*output[0] = '0';
+		*output = append_char(*output, c, nb, 1); 
+		*output[0] = '-';
 	}
 	else
-		output = append_char(output, c, nb, 1);
+	{
+		//printf("c = %d nb = |%d| s = |%s|\n",c, nb ,output );
+		//printf("3\n");
+		//printf("|%s|\n",*output );
+		*output = append_char(*output, c, nb, 1);
+	}
+	//printf("|%s|\n",*output );
 }

@@ -29,8 +29,8 @@ unsigned char	*append_char(unsigned char *base, char to_add, int count, int orde
 		out = ft_ustrjoin(filler, base);
 	else
 		out = ft_ustrjoin(base, filler);
-	free(base);
-	free(filler);
+	//free(base);
+	//free(filler);
 	//base = NULL;
 	//filler = NULL;
 	return (out);
@@ -58,7 +58,7 @@ unsigned char	*process_0(c_contr *controller)
 	
 	if (controller->str_in[*(controller->pos) + i] == '.')
 		out = ' ';
-	//printf("out ??\n");
+	//printf("out = %d\n", out);
 	*(controller->pos) += i;
 	i = *(controller->pos);
 	//printf("b4 proccess\n");
@@ -70,10 +70,14 @@ unsigned char	*process_0(c_contr *controller)
 	//printf("POS 2, %s \n", output);
 	if (controller->str_in[i] == 'i' || controller->str_in[i] == 'd')
 	{
+
 		//printf("POS 3\n");
-		sub_process0(nb, output, out);
+		//printf("c = %s\n", output);
+		sub_process0(nb, &output, out);
+		//printf("|%s|\n",output );
+
 	}	
-	else if ((int)ft_ustrlen(output) < nb)
+	else if ((int)ft_ustrlen(output) < nb + 1)
 	{
 		//printf("POS 4\n");
 		output = append_char(output, out, nb, 1);
