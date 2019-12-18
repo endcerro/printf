@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-unsigned char	*process_s(c_contr *controller)
+unsigned char	*process_s(t_contr *controller)
 {
 	unsigned char	*tmp;
 
@@ -22,7 +22,7 @@ unsigned char	*process_s(c_contr *controller)
 	return (ft_ustrdup(tmp));
 }
 
-unsigned char	*process_p(c_contr *controller)
+unsigned char	*process_p(t_contr *controller)
 {
 	char			*output;
 	char			*tmp;
@@ -38,7 +38,7 @@ unsigned char	*process_p(c_contr *controller)
 	return (outuns);
 }
 
-unsigned char	*process_x(c_contr *controller, char x)
+unsigned char	*process_x(t_contr *controller, char x)
 {
 	char			*tmp;
 	unsigned char	*output;
@@ -66,4 +66,25 @@ void			sub_process0(int nb, unsigned char **output, char c)
 	}
 	else
 		*output = append_char(*output, c, nb, 1);
+}
+
+unsigned char	*sub_sub_dot(unsigned char *ot, unsigned char *zr)
+{
+	unsigned char	*tmp;
+
+	if (*ot == '-')
+	{
+		tmp = ft_ustrjoin(zr, ot + 1);
+		free(ot);
+		ot = ft_ustrjoin((unsigned char *)"-0", tmp);
+		free(tmp);
+	}
+	else
+	{
+		tmp = ft_ustrjoin(zr, ot);
+		free(ot);
+		ot = tmp;
+	}
+	free(zr);
+	return (ot);
 }

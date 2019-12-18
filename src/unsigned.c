@@ -55,7 +55,7 @@ unsigned char	*ft_ustrdup(unsigned char *s1)
 	return (p);
 }
 
-unsigned char	*ft_ustrjoin(const unsigned char *s1, const unsigned char *s2)
+unsigned char	*ft_ustrjoin(unsigned char *s1, unsigned char *s2)
 {
 	unsigned char	*out;
 	int				sz;

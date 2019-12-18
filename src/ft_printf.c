@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-unsigned char	*sub_switch(c_contr *controller, char c)
+unsigned char	*sub_switch(t_contr *controller, char c)
 {
 	unsigned char *output;
 
@@ -26,7 +26,7 @@ unsigned char	*sub_switch(c_contr *controller, char c)
 	return (output);
 }
 
-unsigned char	*process_type(c_contr *controller)
+unsigned char	*process_type(t_contr *controller)
 {
 	unsigned char	*output;
 	char			c;
@@ -52,7 +52,7 @@ unsigned char	*process_type(c_contr *controller)
 	return (output);
 }
 
-unsigned char	*process_flag(c_contr *controller)
+unsigned char	*process_flag(t_contr *controller)
 {
 	char c;
 
@@ -71,7 +71,7 @@ unsigned char	*process_flag(c_contr *controller)
 		return (process_type(controller));
 }
 
-unsigned char	*process(c_contr *controller)
+unsigned char	*process(t_contr *controller)
 {
 	unsigned char *output;
 	unsigned char c_to_s[2];
@@ -100,12 +100,12 @@ unsigned char	*process(c_contr *controller)
 
 int				ft_printf(const char *str_in, ...)
 {
-	struct c_list	*controller;
+	struct s_contr	*controller;
 	unsigned char	*to_print;
 	int				vars[2];
 	va_list			args;
 
-	if (!(controller = malloc(sizeof(c_contr))))
+	if (!(controller = malloc(sizeof(t_contr))))
 		return (0);
 	va_start(args, str_in);
 	vars[0] = 0;

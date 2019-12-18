@@ -12,8 +12,6 @@
 
 #include "ft_printf.h"
 
-
-
 unsigned char	*append_char(unsigned char *base, char t_a, int cpt, int order)
 {
 	int				i;
@@ -36,7 +34,7 @@ unsigned char	*append_char(unsigned char *base, char t_a, int cpt, int order)
 	return (out);
 }
 
-unsigned char	*process_0(c_contr *controller)
+unsigned char	*process_0(t_contr *controller)
 {
 	unsigned char	*output;
 	int				i;
@@ -65,7 +63,7 @@ unsigned char	*process_0(c_contr *controller)
 	return (output);
 }
 
-unsigned char	*process_minus(c_contr *controller)
+unsigned char	*process_minus(t_contr *controller)
 {
 	unsigned char	*output;
 	int				i;
@@ -86,44 +84,7 @@ unsigned char	*process_minus(c_contr *controller)
 	return (output);
 }
 
-unsigned char *sub_process_dot(unsigned char *output, int nb)
-{
-	int i;
-	unsigned char *zeros;
-	unsigned char *tmp;
-
-	if ((int)ft_ustrlen(output) <= nb)
-	{
-		i = -1;
-		if (!(zeros = malloc(sizeof(unsigned char) * (nb - (int)ft_ustrlen(output) + 1))))
-			return (0);
-		while (++i < (nb - (int)ft_ustrlen(output)))
-			zeros[i] = '0';
-		zeros[i] = 0;
-		if (*output == '-')
-		{
-			tmp = ft_ustrjoin(zeros, output + 1);
-			free(output);
-			output = ft_ustrjoin((unsigned char *)"-0", tmp);
-			free(tmp);
-		}
-		else
-		{
-			tmp = ft_ustrjoin(zeros, output);
-			free(output);
-			output = tmp;
-		}
-		free(zeros);
-	}
-	if (nb == 0 && output[0] == '0')
-	{
-		free(output);
-		return (ft_ustrdup((unsigned char *)""));
-	}
-	return (output);
-}
-
-unsigned char	*process_dot(c_contr *controller)
+unsigned char	*process_dot(t_contr *controller)
 {
 	int				i;
 	unsigned char	*output;
@@ -146,13 +107,13 @@ unsigned char	*process_dot(c_contr *controller)
 	if (controller->str_in[*(controller->pos) - 1] == 's' && nb >= 0 && i >= 1)
 		tmp = ft_usubstr(output, 0, nb);
 	else
-		return(sub_process_dot(output, nb));
+		return (sub_process_dot(output, nb));
 	free(output);
 	output = tmp;
 	return (output);
 }
 
-unsigned char	*process_nb(c_contr *controller)
+unsigned char	*process_nb(t_contr *controller)
 {
 	int				i;
 	unsigned char	*output;

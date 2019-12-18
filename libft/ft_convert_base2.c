@@ -12,22 +12,22 @@
 
 #include "libft.h"
 
-void	ft_addto(char *st, unsigned long *nb, char c)
+void				ft_addto(char *st, unsigned long *nb, char c)
 {
 	st[*nb] = c;
 	*nb = *nb + 1;
 }
 
-int		mchb_strl(char nb, char *base)
+int					mchb_strl(char nb, char *base)
 {
 	unsigned long j;
 
 	j = 0;
-		while (base[j] && base[j] != nb)
-			j++;
-		if (!base[j])
-			return (-1);
-		return (j);
+	while (base[j] && base[j] != nb)
+		j++;
+	if (!base[j])
+		return (-1);
+	return (j);
 }
 
 unsigned long		ft_base_is_valid(char *base)
@@ -65,11 +65,7 @@ unsigned long		clean(char *nb, char *base, char *dest)
 	nbminus = 0;
 	j = 0;
 	while (mchb_strl(nb[i], base) > -1 && nb[i])
-	{
 		dest[j++] = nb[i++];
-		//j++;
-		//i++;
-	}
 	dest[j] = '\0';
 	return (nbminus);
 }
@@ -79,11 +75,10 @@ unsigned long		ft_atoi_base(char *nb, char *base)
 	unsigned long		i;
 	unsigned long		final_nb;
 	char				cpy[ft_strlen(nb)];
-	
+
 	i = 0;
 	final_nb = 0;
 	clean(nb, base, cpy);
-	//printf("retnb = %lu\n",retnb);
 	ft_strlen(cpy);
 	while (cpy[i])
 	{

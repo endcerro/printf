@@ -14,7 +14,7 @@
 
 static int		getlen(int n)
 {
-	int i;
+	int		i;
 
 	i = 1;
 	if (n < 0)
@@ -29,8 +29,8 @@ static int		getlen(int n)
 
 int				ft_pow(int nb, int pow)
 {
-	int i;
-	int dest;
+	int		i;
+	int		dest;
 
 	dest = 1;
 	i = 0;
@@ -68,7 +68,7 @@ char			*ft_itoa(int n)
 	return (out);
 }
 
-unsigned char			*ft_itoua(int n)
+unsigned char	*ft_itoua(int n)
 {
 	unsigned char	*out;
 	int				len;

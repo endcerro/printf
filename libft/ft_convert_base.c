@@ -12,19 +12,19 @@
 
 #include "libft.h"
 
-void	ft_putnbr_base_rec(unsigned long a, char *bs, char *dt, unsigned long *p)
+void	ft_putnbr_base_rec(unsigned long a, char *b, char *dt, unsigned long *p)
 {
 	unsigned long bnb;
 
-	bnb = ft_strlen(bs);
+	bnb = ft_strlen(b);
 	if (a >= bnb)
-		ft_putnbr_base_rec(a / bnb, bs, dt, p);
-	ft_addto(dt, p, bs[a % bnb]);
+		ft_putnbr_base_rec(a / bnb, b, dt, p);
+	ft_addto(dt, p, b[a % bnb]);
 }
 
-void	ft_putnbr_base(unsigned long nbr, char *base, char *dt, unsigned long *nb)
+void	ft_putnbr_base(unsigned long nr, char *bs, char *dt, unsigned long *nb)
 {
-	ft_putnbr_base_rec(nbr, base, dt, nb);
+	ft_putnbr_base_rec(nr, bs, dt, nb);
 	ft_addto(dt, nb, '\0');
 }
 
@@ -40,16 +40,15 @@ int		size_int_base(unsigned long nb, unsigned long base_size)
 		nb /= base_size;
 		res++;
 	}
-	
 	return (res);
 }
 
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
-	char	*dest;
+	char				*dest;
 	unsigned long		cache;
 	unsigned long		nb;
-	int		tmp;
+	int					tmp;
 
 	dest = 0;
 	if (!ft_base_is_valid(base_to) || !ft_base_is_valid(base_from))
