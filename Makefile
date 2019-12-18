@@ -5,68 +5,59 @@
 #                                                     +:+ +:+         +:+      #
 #    By: edal--ce <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/11/19 16:51:20 by edal--ce          #+#    #+#              #
-#    Updated: 2019/11/19 16:51:25 by edal--ce         ###   ########.fr        #
+#    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
+#    Updated: 2019/12/18 17:54:39 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
-CFLAGS = -Wall -Wextra -Werror 
-
 NAME = libftprintf.a
-	
-SRCS = ft_printf.c ft_printf_utils.c \
-ft_process_flags.c ultoa.c unsigned.c
 
-LFTDIR = ./libft/
+SRCS = src/ft_printf.c src/ft_process_flags.c src/unsigned.c src/ft_printf_utils.c src/ultoa.c
+			
+OBJS = $(SRCS:.c=.o)
 
-LFTSRCS = libft/ft_split.c libft/ft_putnbr_fd.c libft/ft_putendl_fd.c libft/ft_putstr_fd.c \
-libft/ft_putchar_fd.c libft/ft_substr.c libft/ft_atoi.c libft/ft_bzero.c libft/ft_calloc.c libft/ft_isalnum.c \
-libft/ft_isalpha.c libft/ft_isascii.c libft/ft_isdigit.c libft/ft_isprint.c libft/ft_memccpy.c libft/ft_memchr.c \
-libft/ft_memcmp.c libft/ft_memcpy.c libft/ft_memmove.c libft/ft_memset.c libft/ft_strchr.c libft/ft_strdup.c \
-libft/ft_strlcat.c libft/ft_strlcpy.c libft/ft_strlen.c libft/ft_strncmp.c libft/ft_strnstr.c libft/ft_strrchr.c \
-libft/ft_tolower.c libft/ft_toupper.c libft/ft_strjoin.c libft/ft_strmapi.c libft/ft_itoa.c libft/ft_strtrim.c \
-libft/ft_convert_base.c libft/ft_convert_base2.c \
-libft/ft_lstnew.c libft/ft_lstadd_front.c libft/ft_lstsize.c libft/ft_lstclear.c\
-libft/ft_lstlast.c libft/ft_lstadd_back.c libft/ft_lstdelone.c libft/ft_lstmap.c\
-libft/ft_lstiter.c libft/ft_abs.c
+INCL = header/
 
-#BNSOBJ = ${BNSSRC:.c=.o}
-
-OBJS = ${SRCS:.c=.o}
-
-LFTOBJS = ${LFTSRCS:.c=.o}
+HEADER = $(INCL)ft_printf.h
 
 CC = gcc
 
-HEADER = ft_printf.h libft.h
+CFLAGS = -Werror -Wall -Wextra
 
-LIBS = libft.a
+LIBLINK = -L./ -lftprintf
 
-#run : ${OBJS}
-#	cd libft && make
-#	${CC} $(LIBS) -I ./ *.c -L libft/
+LIB = libft/
 
-all : $(NAME)
+OBJLIB = $(LIB)/*.o
 
-.c.o:
-	${CC} ${CFLAGS} -I ./ -c $< -o ${<:.c=.o}
+LIBFT = $(LIB)libft.a
 
-$(NAME): ${OBJS} ${LFTOBJS}
-	ar rcs $(NAME) ${OBJS} ${LFTOBJS} ${HEADER}
+all : complib $(NAME)
 
-#bonus: ${BNSOBJ} ${OBJS} ${HEADER}
-#	ar rcs $(NAME) ${OBJS} ${BNSOBJ} ${HEADER}	
+$(OBJS) : %.o: %.c $(HEADER)
+	@$(CC) $(CFLAGS) -I $(INCL) -c $< -o $@ 
 
-#$(NAME): ${OBJS} ${HEADER}
-#	ar rcs $(NAME) ${OBJS} ${HEADER}
+$(NAME) : $(OBJS)
+	@ar rcs $@ $(OBJS) $(OBJLIB)
 
-fclean : clean
-	rm -rf  ./$(NAME)
+complib :
+	@$(MAKE) -C libft all
 
-clean :
-	rm -rf ${OBJS}
-	
-#re : fclean all
+cleanlibft :
+	@$(MAKE) -C libft clean
 
-#.PHONY: clean all fclean re bonus
+fcleanlibft :
+	@$(MAKE) -C libft fclean
+
+#clean : echoCLEAN cleanlibft	
+clean : cleanlibft
+	@$(RM) $(OBJS)
+
+#fclean : clean echoFCLEAN fcleanlibft
+fclean : clean fcleanlibft
+	@$(RM) $(NAME)
+	@rm -rf a.out a.out.dSYM
+
+re : fclean all
+
+.PHONY : all clean fclean re complib cleanlibft fcleanlibft

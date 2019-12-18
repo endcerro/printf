@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-# include "libft.h"
+# include "../libft/libft.h"
 
 
 typedef struct		c_list
