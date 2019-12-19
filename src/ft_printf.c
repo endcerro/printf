@@ -69,6 +69,9 @@ unsigned char	*process_flag(t_contr *controller)
 		return (process_nb(controller));
 	else
 		return (process_type(controller));
+	//else if (c == '\0')
+	//	return (NULL);
+	
 }
 
 unsigned char	*process(t_contr *controller)
