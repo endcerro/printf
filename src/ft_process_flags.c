@@ -94,22 +94,36 @@ unsigned char	*process_dot(t_contr *controller)
 	i = 0;
 	*(controller->pos) += 1;
 	nb = ft_atoi(controller->str_in + *(controller->pos));
+	//printf("i = %d\n",i );
 	while (ft_isdigit(controller->str_in[*(controller->pos) + i]))
 		i++;
 	if (controller->str_in[*(controller->pos)] == '*' && ++i)
 		nb = va_arg(*(controller->args), int);
 	*(controller->pos) += i;
 	output = process_type(controller);
+	//printf("char = %c, nb = %d, i = %d\n",controller->str_in[*(controller->pos) - 1],nb, i  );
+	//printf("%s\n",output );
 	if (output == NULL)
 		return (NULL);
+	//printf("%s\n",output );
 	if (output[0] == '%')
 		return (output);
+	//printf("char = %c, nb = %d, i = %d\n",controller->str_in[*(controller->pos) - 1],nb, i  );
+	//printf("%s\n",output );
 	if (controller->str_in[*(controller->pos) - 1] == 's' && nb >= 0 && i >= 1)
+	{
+		//printf("here\n");
 		tmp = ft_usubstr(output, 0, nb);
+	}
 	else
+	{
+		//printf("%s\n",output );
 		return (sub_process_dot(output, nb));
+	
+	}
 	free(output);
 	output = tmp;
+	//printf("%s\n",output );
 	return (output);
 }
 

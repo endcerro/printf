@@ -64,6 +64,7 @@ unsigned char				*sub_process_dot(unsigned char *output, int nb)
 	int				i;
 	unsigned char	*zeros;
 
+	//printf("%s\n",output );
 	if ((int)ft_ustrlen(output) <= nb)
 	{
 		i = -1;
@@ -75,7 +76,7 @@ unsigned char				*sub_process_dot(unsigned char *output, int nb)
 		zeros[i] = 0;
 		output = sub_sub_dot(output, zeros);
 	}
-	if (nb == 0 && output[0] == '0')
+	if (nb == 0 && output[0] == '0' && output[1] != 'x')
 	{
 		free(output);
 		output = ft_ustrdup((unsigned char *)"");

@@ -49,6 +49,7 @@ unsigned char	*process_type(t_contr *controller)
 	if (c != 's' && output != NULL && output[0] == '\0')
 		*(controller->len) += 1;
 	*(controller->pos) += 1;
+	//printf("output = %s\n",output );
 	return (output);
 }
 
@@ -64,14 +65,16 @@ unsigned char	*process_flag(t_contr *controller)
 	else if (ft_isdigit(c))
 		return (process_nb(controller));
 	else if (c == '.')
+	{
+			//printf("here\n");
 		return (process_dot(controller));
+	}
 	else if (c == '*')
 		return (process_nb(controller));
+	else if (c == '\0')
+		return (NULL);
 	else
 		return (process_type(controller));
-	//else if (c == '\0')
-	//	return (NULL);
-	
 }
 
 unsigned char	*process(t_contr *controller)
@@ -87,6 +90,7 @@ unsigned char	*process(t_contr *controller)
 	*(controller->pos) += 1;
 	if ((controller->str_in)[*(controller->pos) - 1] == '%')
 	{
+		//printf("FLAG\n");
 		tmp[0] = NULL;
 		if ((controller->str_in)[*(controller->pos)] != '\0')
 			tmp[0] = process_flag(controller);

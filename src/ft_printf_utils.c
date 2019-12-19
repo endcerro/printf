@@ -27,8 +27,17 @@ unsigned char	*process_p(t_contr *controller)
 	char			*output;
 	char			*tmp;
 	unsigned char	*outuns;
+	unsigned long	test;
 
-	output = ft_ultoa(va_arg(*(controller->args), unsigned long));
+	test = va_arg(*(controller->args), unsigned long);
+	if(test == 0)
+	{
+		//printf("here\n");
+		return ft_ustrdup((unsigned char*)"0x");
+		//free(output);
+	}
+	
+	output = ft_ultoa(test);
 	tmp = ft_convert_base(output, "0123456789", "0123456789abcdef");
 	free(output);
 	output = ft_strjoin("0x", tmp);
