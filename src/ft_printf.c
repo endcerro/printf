@@ -46,12 +46,22 @@ char	*add_fill(char *base, char fill, int cpt, int order)
 	return (tmp);
 }
 
+char	*add_fill_0(char *base, char fill, int cpt, int order)
+{
+	char *out;
+
+	base[0] = '0';
+	out = add_fill(base, fill, cpt, order);
+	out[0] = '-';
+	return (out);
+}
 
 char *applyflags(t_contr *controller, char *in)
 {
 	int p;
 	char *out;
 	int val;
+	int tmp;
 
 
 	if(controller->flags == NULL)
@@ -60,96 +70,65 @@ char *applyflags(t_contr *controller, char *in)
 	p = (controller->flags->nbfl) - 1;
 	out = NULL;
 
-	while(p >= 0 && *in >= 0)
+	while(p >= 0 && in[0] >= '\0')
 	{
 		val = ft_abs(controller->flags->vals[p]) - ft_strlen(in);
 	 	if(controller->flags->flags[p] == '0')
-	 	{	
+	 	{
+	 		//Si on fqit p--, pourquoi repqrtir dans l'autre sens ?
 	 		if(controller->flags->flags[p + 1] == '.' && isin(controller->str_in[*(controller->pos)], "diuxX"))
  			{
  				if(controller->flags->vals[p + 1] < 0)
  				{	
-					if(controller->flags->vals[p] > 0)
- 					{
- 						if(in[0] == '-')
- 						{
- 							in[0] = '0';
- 							out = add_fill(in, '0', val, 1);
- 							out[0] = '-';
- 						}
- 						else
-							out = add_fill(in, '0', val, 1);				
- 					}
+					if(controller->flags->vals[p] > 0 && in[0] == '-')
+ 						out = add_fill_0(in, '0', val, 1);
 					else
-						out = add_fill(in, ' ', val, 0);
+					{
+						tmp = (controller->flags->vals[p] > 0) * 16;
+						out = add_fill(in, ' ' + tmp, val, (tmp == 16));
+					}
 				}
  				else if(ft_abs(controller->flags->vals[p + 1]) > (int)ft_strlen(in) && val > 1)
  					out = add_fill(in, '0', val, 1);
  				else
-	 			{	
-	 				if(controller->flags->vals[p] > 1)
-	 					out = add_fill(in, ' ', val, 1	);
-	 				else
-	 					out = add_fill(in, ' ', val, 0);
-	 			}
+					out = add_fill(in, ' ', val, (controller->flags->vals[p] > 1));
 	 		}
  			else if (isin(controller->str_in[*(controller->pos)], "diuxX") && in[0] == '-')
  			{
-				if(controller->flags->vals[p] > 0)
-				{
-					in[0] = '0';
- 					out = add_fill(in, '0', val, 1);
- 					out[0] = '-';
- 				}
- 				else
- 					out = add_fill(in, ' ', val, 0);
- 			}
- 			else if(*in != '\0')
- 			{
-
- 				if(controller->flags->vals[p] < 0)
-					out = add_fill(in, ' ', val, 0);
-				else
- 					out = add_fill(in, '0', val, 1);
+ 				tmp = (controller->flags->vals[p] > 0) * 16;
+				out = add_fill(in, ' ' + tmp, val, (tmp == 16));
  			}
  			else
- 				out = add_fill(in, ' ', val, 1);
+ 			{
+ 				tmp = (controller->flags->vals[p] < 0) * 16 * (*in != '\0');
+				out = add_fill(in, ' ' + (*in != '\0') * 16, val, (tmp == 16));
+ 			}
  	 	}
 		else if(controller->flags->flags[p] == 'n')
 		{	
-			if(isin(controller->str_in[*(controller->pos)], "c") && controller->flags->vals[p] <= 0)
-				out = add_fill(in, ' ', val, 0);
-			else
-				out = add_fill(in, ' ', val, 1);
+			tmp =  controller->str_in[*(controller->pos)] == 'c';
+			tmp *= (controller->flags->vals[p] <= 0);
+			out = add_fill(in, ' ', val, tmp);
 		}
 		else if(controller->flags->flags[p] == '-')
 			out = add_fill(in, ' ', val, 0);
 		else if(controller->flags->flags[p] == '.')
  		{
- 			if(controller->flags->vals[p] == 0)
+ 			if(controller->flags->vals[p] == 0 || (ft_strlen(in) == 1 && *in == '%') || controller->flags->vals[p] < 0)
  				out = in;
- 			if(isin(controller->str_in[*(controller->pos)], "s"))
+ 			else if(controller->str_in[*(controller->pos)] == 's')
  			{
  				if(controller->flags->vals[p] > 0)
  					out = ft_substr(in, 0, ft_abs(controller->flags->vals[p]));
  				else if(controller->flags->vals[p] == 0)
  					out = ft_strdup("");
- 				else
- 					out = in;
  			}
  			else if (isin(controller->str_in[*(controller->pos)], "di") && in[0] == '-')
  			{
 				val++;
  				if(controller->flags->vals[p] > 0)
-				{
-
-					in[0] = '0';
- 					out = add_fill(in, '0', val, 1);
- 					out[0] = '-';
- 				}
+ 					out = add_fill_0(in, '0', val, 1);
 			}
- 			else if (ft_strlen(in) == 1 && *in == '%' )
- 				out = in;
  			else if(controller->str_in[*(controller->pos)] == 'p')
  			{
  				if(in[2] == '0' && val <= 0)

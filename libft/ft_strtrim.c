@@ -26,11 +26,9 @@ static int		isincharset(char c, char const *set)
 static int		getfinalsize(char const *s1, char const *set, int *start)
 {
 	int i;
-	int cpt;
 	int end;
 
 	end = -1;
-	cpt = 0;
 	i = 0;
 	while (s1[i] && isincharset(s1[i], set))
 		i++;

@@ -18,30 +18,30 @@ int main()
 	//printf(" : %d\n",ft_printf("%010.2d", nb));
 	//printf(" : %d\n",printf("%010.2d", nb));
 
-	//	printf(" : %d\n",ft_printf("%010.2i", nb));
+		printf(" : %d\n",ft_printf("%010.2i", nb));
 	//printf(" : %d\n",printf("%010.2i", nb));
 
 	ft_printf("%010.2c", 'A');
-	//printf(" : %d\n",printf("%010.2c", 'A'));
+	printf(" : %d\n",printf("%010.2c", 'A'));
 
 
-	//ft_printf("on test %s **** %s %s ", "la 1ere str", "2eme str", "3eme str");
+	ft_printf("on test %s **** %s %s ", "la 1ere str", "2eme str", "3eme str");
 
-	// printf(" : %d\n",ft_printf("%010d", nb));
-	// printf(" : %d\n",printf("%010d", nb));
-
-
-	// printf(" : %d\n",ft_printf("%10c", 'A'));
-	// printf(" : %d\n",printf("%10c", 'A'));
-
-	// printf(" : %d\n",ft_printf("%010c", 'A'));
-	// printf(" : %d\n",printf("%010c", 'A'));
+	printf(" : %d\n",ft_printf("%010d", nb));
+	printf(" : %d\n",printf("%010d", nb));
 
 
-	// printf(" : %d\n",ft_printf("%10u", 15484884));
-	// printf(" : %d\n",printf("%10u", 15484884));
+	printf(" : %d\n",ft_printf("%10c", 'A'));
+	printf(" : %d\n",printf("%10c", 'A'));
 
-	//printf(" : %d\n",ft_printf("%X", 42));
+	printf(" : %d\n",ft_printf("%010c", 'A'));
+	printf(" : %d\n",printf("%010c", 'A'));
+
+
+	printf(" : %d\n",ft_printf("%10u", 15484884));
+	printf(" : %d\n",printf("%10u", 15484884));
+
+	printf(" : %d\n",ft_printf("%X", 42));
 	//printf(" : %d\n",printf("%X", 42));
 
 
