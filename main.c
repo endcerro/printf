@@ -63,13 +63,23 @@ int main()
 	// printf(" : %d\n",printf("%2c", '1'));
 	// printf(" : %d\n",ft_printf("%2c", '1'));
 
-	printf(" : %d\n",printf("%.*i", -6, -3));
-	printf(" : %d\n",ft_printf("%.*i", -6, -3));
+//	printf(" : %d\n",printf("c%010.*xeoQG", 0, 5));
+//	printf(" : %d\n",ft_printf("c%010.*xeoQG", 0, 5));
 
-	printf(" : %d\n",printf("%0*i", -7, -54));
-	printf(" : %d\n",ft_printf("%0*i", -7, -54));
-	//printf(" : %d\n",ft_printf("%.20d", INT_MAX ));
-	//printf(" : %d\n",ft_printf("%.13d", INT_MAX + 1));
+
+//	printf(" : %d\n",printf("%.0s", "Hello"));
+//	printf(" : %d\n",ft_printf("%.0s", "Hello"));
+	
+
+	printf(" : %d\n",printf("%.*s", -3, "Hello"));
+	printf(" : %d\n",ft_printf("%.*s", -3, "Hello"));
+	// printf(" : %d\n",printf("%.0s", ""));
+	// printf(" : %d\n",ft_printf("%.0s", ""));
+	// printf(" : %d\n",printf("%01.0i", 0) );
+	// printf(" : %d\n",ft_printf("%01.0i", 0) );
+
+	// printf(" : %d\n",printf("%02.0i", 0) );
+	// printf(" : %d\n",ft_printf("%02.0i", 0) );
 
 	// printf(" : %d\n",printf("%.10%"));
 	// printf(" : %d\n",ft_printf("%.10%"));

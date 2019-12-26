@@ -68,7 +68,12 @@ char *applyflags(t_contr *controller, char *in)
 	 		//printf("IN = |%s|\n",in );
 	 		//printf("val1 = %d \n", controller->flags->vals[p]);
 	 		if(controller->flags->flags[p + 1] == '.' && isin(controller->str_in[*(controller->pos)], "diuxX"))
-	 			out = add_fill(in, ' ', val, 1);
+ 			{
+ 				if(controller->flags->vals[p + 1] > (int)ft_strlen(in))
+ 					out = add_fill(in, '0', val, 1);
+	 			else
+	 				out = add_fill(in, ' ', val, 1);
+	 		}
  			else if (isin(controller->str_in[*(controller->pos)], "diuxX") && in[0] == '-')
  			{
 				//printf("here\n");
@@ -138,7 +143,23 @@ char *applyflags(t_contr *controller, char *in)
  			}
  			//printf("char = %c\n",controller->str_in[*(controller->pos)] );
  			if(isin(controller->str_in[*(controller->pos)], "s"))
- 				out = ft_substr(in, 0, controller->flags->vals[p]);
+ 			{
+ 				//printf(" val= |%d|\n",controller->flags->vals[p] );
+ 				if(controller->flags->vals[p] > 0)
+ 				{
+ 					//printf(" in \n");
+ 					out = ft_substr(in, 0, ft_abs(controller->flags->vals[p]));
+ 				}
+ 				else if(controller->flags->vals[p] == 0)
+ 				{
+ 					//printf("elses\n");
+ 					out = ft_strdup("");
+ 				}
+ 				else
+ 				{	
+					out = in;
+ 				}
+ 			}
  			else if (isin(controller->str_in[*(controller->pos)], "di") && in[0] == '-')
  			{
  				//printf("in  = %s\n",in );
