@@ -58,28 +58,3 @@ char						*ft_ultoa(unsigned long n)
 	out[indxo] = '\0';
 	return (out);
 }
-
-unsigned char				*sub_process_dot(unsigned char *output, int nb)
-{
-	int				i;
-	unsigned char	*zeros;
-
-	//printf("%s\n",output );
-	if ((int)ft_ustrlen(output) <= nb)
-	{
-		i = -1;
-		if (!(zeros = malloc(sizeof(unsigned char) *
-			(nb - (int)ft_ustrlen(output) + 1))))
-			return (0);
-		while (++i < (nb - (int)ft_ustrlen(output)))
-			zeros[i] = '0';
-		zeros[i] = 0;
-		output = sub_sub_dot(output, zeros);
-	}
-	if (nb == 0 && output[0] == '0' && output[1] != 'x')
-	{
-		free(output);
-		output = ft_ustrdup((unsigned char *)"");
-	}
-	return (output);
-}
