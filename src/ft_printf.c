@@ -61,22 +61,72 @@ char *applyflags(t_contr *controller, char *in)
 
 	while(p >= 0 && *in >= 0)
 	{
-		//printf("applyflags\n");
+
 		val = ft_abs(controller->flags->vals[p]) - ft_strlen(in);
 	 	if(controller->flags->flags[p] == '0')
 	 	{	
-	 		//printf("IN = |%s|\n",in );
-	 		//printf("val1 = %d \n", controller->flags->vals[p]);
+	 		//printf("hERE\n");
 	 		if(controller->flags->flags[p + 1] == '.' && isin(controller->str_in[*(controller->pos)], "diuxX"))
  			{
- 				if(controller->flags->vals[p + 1] > (int)ft_strlen(in))
+ 				//printf("hERE\n");
+ 				//printf("OUT = %s\n",out );
+ 				//printf(" flag p = |%d|\n",controller->flags->vals[p]);
+ 				//printf(" flag p+1 = %d, len = %d, val = %d\n",controller->flags->vals[p + 1],(int)ft_strlen(in), val  );
+ 				//if(ft_abs(controller->flags->vals[p + 1]) > (int)ft_strlen(in) && val > 1)
+ 				if(controller->flags->vals[p + 1] < 0)
+ 				{	
+				//	printf("in %s\n", in);
+					
+				//	printf("out %s\n", out);
+
+ 					if(controller->flags->vals[p] > 0)
+ 					{
+ 						if(in[0] == '-')
+ 						{
+ 							in[0] = '0';
+ 							out = add_fill(in, '0', val, 1);
+ 							out[0] = '-';
+ 							//printf(" MRE \n");	
+ 						}
+ 						else
+							out = add_fill(in, '0', val, 1);
+ 						
+ 					}
+					else
+					{
+						out = add_fill(in, ' ', val, 0);
+			//			printf(" 2 \n");
+					}
+					//printf("in %s\n", in);
+			//		printf("out %s\n", out);
+				}
+ 				else if(ft_abs(controller->flags->vals[p + 1]) > (int)ft_strlen(in) && val > 1)
+ 				{
+ 						//printf("ici\n");
  					out = add_fill(in, '0', val, 1);
+ 				
+ 				}
 	 			else
-	 				out = add_fill(in, ' ', val, 1);
+	 			{	
+	 				//printf("val = %d \n",controller->flags->vals[p + 1] );
+	 				if(controller->flags->vals[p] > 1)
+	 				{
+	 					//printf("ici\n");
+	 					out = add_fill(in, ' ', val, 1	);
+	 				}
+	 				else
+	 				{
+	 				//	printf("ici\n");
+	 					out = add_fill(in, ' ', val, 0);
+	 				}
+	 				
+	 					
+	 			}
+	 			//printf("OUT = %s\n",out );
+	 			//printf("IN = %s\n",in);
 	 		}
  			else if (isin(controller->str_in[*(controller->pos)], "diuxX") && in[0] == '-')
  			{
-				//printf("here\n");
 				if(controller->flags->vals[p] > 0)
 				{
 					in[0] = '0';
@@ -84,134 +134,97 @@ char *applyflags(t_contr *controller, char *in)
  					out[0] = '-';
  				}
  				else
- 				{
  					out = add_fill(in, ' ', val, 0);
- 				}
  			}
- 			else if(*in != '\0')//if(ft_strlen(in) > 1 && *in != '0')
+ 			else if(*in != '\0')
  			{
- 				
- 				//printf("ici ? \n");
+
  				if(controller->flags->vals[p] < 0)
 					out = add_fill(in, ' ', val, 0);
 				else
+				{
  					out = add_fill(in, '0', val, 1);
+				}
  			}
  			else
- 			{
  				out = add_fill(in, ' ', val, 1);
- 			}
+
+ 			//printf("OUT = %s\n",out );
  	 	}
 		else if(controller->flags->flags[p] == 'n')
 		{	
-			//printf("%c\n",controller->flags->flags[p1] );
 			if(isin(controller->str_in[*(controller->pos)], "c") && controller->flags->vals[p] <= 0)
-			{
-				//printf("val1 = %d \n", controller->flags->vals[p]);
 				out = add_fill(in, ' ', val, 0);
-			}
 			else
-			{
-				//printf("val = %d \n", controller->flags->vals[p]);
 				out = add_fill(in, ' ', val, 1);
-			}
-			// if(controller->flags->flags[p - 1] == '.')	
- 		// 		out = add_fill(in, ' ', val, 1);
-			
 		}
 		else if(controller->flags->flags[p] == '-')
-		{	
-			//printf("%c\n",controller->flags->flags[p1] );
-				out = add_fill(in, ' ', val, 0);
-			// if(controller->flags->flags[p - 1] == '.')	
- 		// 		out = add_fill(in, ' ', val, 1);
-			
-		}
- 		else if(controller->flags->flags[p] == '.')
+			out = add_fill(in, ' ', val, 0);
+		else if(controller->flags->flags[p] == '.')
  		{
- 			
- 			// if(controller->flags->vals[p] < 0)
- 			// {
- 			// 	out = in
- 			// }
+ 			//printf("In here\n");
  			if(controller->flags->vals[p] == 0)
- 			{
- 				//printf("here\n");
- 				//printf("|%s|\n",in );
- 				//out = in;
  				out = in;
- 			}
- 			//printf("char = %c\n",controller->str_in[*(controller->pos)] );
+
  			if(isin(controller->str_in[*(controller->pos)], "s"))
  			{
- 				//printf(" val= |%d|\n",controller->flags->vals[p] );
+ 				//printf("here\n");
  				if(controller->flags->vals[p] > 0)
- 				{
- 					//printf(" in \n");
  					out = ft_substr(in, 0, ft_abs(controller->flags->vals[p]));
- 				}
  				else if(controller->flags->vals[p] == 0)
- 				{
- 					//printf("elses\n");
  					out = ft_strdup("");
- 				}
  				else
- 				{	
-					out = in;
- 				}
+ 					out = in;
  			}
  			else if (isin(controller->str_in[*(controller->pos)], "di") && in[0] == '-')
  			{
- 				//printf("in  = %s\n",in );
- 				//printf("val = %d\n",val );
- 				if(val == 0 || *in == '-')
- 					val++;
  				//printf("here\n");
-				//printf("b4 |%s|\n", in);
-				if(controller->flags->vals[p] > 0)
+				val++;
+ 				if(controller->flags->vals[p] > 0)
 				{
+
 					in[0] = '0';
  					out = add_fill(in, '0', val, 1);
  					out[0] = '-';
  				}
-				// in[0] = '0';
- 			// 	out = add_fill(in, '0', val, 1);
- 			// 	out[0] = '-';
- 			// 	//printf("af |%s|\n", out);
- 			}
+			}
  			else if (ft_strlen(in) == 1 && *in == '%' )
  			{
- 				//printf("there\n");
- 				//printf("%d\n",val );
- 				out = add_fill(in, '0', 0, 1);
+ 				//printf("here\n");
+ 				out = in;
  			}
  			else if(controller->str_in[*(controller->pos)] == 'p')
  			{
+ 				//printf("here\n");
  				if(in[2] == '0' && val <= 0)
  					out = ft_strdup("0x");
  				else
  				{
- 					//in[0] = '0';
  					in[1] = '0';
  					out = add_fill(in, '0', val + 2, 1);
  					out[1] = 'x';
  				}
- 				//printf("On ets la\n");
  			}
  			else
  			{
- 				//printf("%d\n",val );
- 				//printf("there\n");
- 				//printf("b4 %s \n",in);
- 				if(val < 0 && *in == '0')
- 				{
- 				//	printf("ici\n");
+ 				//printf("here\n");
+ 				if(val < 0 && *in == '0')	
+				{
+ 					//printf("1\n");
  					out = ft_strdup("");
  				}
  				else if (controller->flags->vals[p] > 0)
  				{
+ 					//printf("2\n");
  					out = add_fill(in, '0', val, 1);
  				}
+ 				else
+ 				{	
+ 			 		//printf("val = %d \n", val);
+ 					//Change ehre
+ 					out = add_fill(in, ' ', 0, 0);
+ 				}
+ 			//	printf("OUT = %s\n",out );
  			}
 
  		}
@@ -219,7 +232,6 @@ char *applyflags(t_contr *controller, char *in)
  			in = out;
  		p--;
 	}
-	//printf("end =  |%s| \n",out);
 	if (out != NULL)
 		return out;
 	else
@@ -348,7 +360,7 @@ void getflags(t_contr *controller, int i)
 			//free(flag);
 			//free(nb);
 			//free(flags);
-			printf("CHAR = |%c|\n",controller->str_in[*(controller->pos) + j]);
+			//printf("CHAR = |%c|\n",controller->str_in[*(controller->pos) + j]);
 			if(controller->str_in[*(controller->pos)] == '\0')
 				printf("coucou\n");
 			flags->nbfl = p;

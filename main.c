@@ -71,12 +71,20 @@ int main()
 //	printf(" : %d\n",ft_printf("%.0s", "Hello"));
 	
 
-	printf(" : %d\n",printf("%.*s", -3, "Hello"));
-	printf(" : %d\n",ft_printf("%.*s", -3, "Hello"));
-	// printf(" : %d\n",printf("%.0s", ""));
-	// printf(" : %d\n",ft_printf("%.0s", ""));
-	// printf(" : %d\n",printf("%01.0i", 0) );
-	// printf(" : %d\n",ft_printf("%01.0i", 0) );
+	printf(" : %d\n",printf("%016.*i", -1, -2147483647));
+	printf(" : %d\n",ft_printf("%016.*i", -1, -2147483647));
+
+	// printf(" : %d\n",printf("%010.2i", 0) );
+	// printf(" : %d\n",ft_printf("%010.2i", 0) );
+
+
+	// printf(" : %d\n",printf("%02.1i", 0));
+	// printf(" : %d\n",ft_printf("%02.1i", 0));
+
+
+	// printf(" : %d\n",printf("%02.1i", 0));
+	// printf(" : %d\n",ft_printf("%02.1i", 0));
+
 
 	// printf(" : %d\n",printf("%02.0i", 0) );
 	// printf(" : %d\n",ft_printf("%02.0i", 0) );
