@@ -22,6 +22,7 @@ int isin(char c, char *str)
 		return (1);
 	return (0);
 }
+<<<<<<< HEAD
 
 char	*add_fill(char *base, char fill, int cpt, int order)
 {
@@ -167,12 +168,78 @@ char *applyflags(t_contr *controller, char *in)
  				}
  			}
 
+=======
+
+char	*add_fill(char *base, char fill, int cpt, int order)
+{
+	char *to_add;
+	int i;
+	char *tmp;
+
+	i = 0;
+	if(cpt <= 0)
+		return base;
+	if(!(to_add = malloc(sizeof(char) * (cpt + 1))))
+		return (NULL);
+	while(i < cpt)
+		to_add[i++] = fill;
+	to_add[i] = '\0';
+	if(order == 1)
+		tmp = ft_strjoin(to_add, base);
+	else
+		tmp = ft_strjoin(base, to_add);
+	free(to_add);
+	return (tmp);
+}
+
+
+char *applyflags(t_contr *controller, char *in)
+{
+	int p;
+	char *out;
+	int val;
+
+	val = 0;
+	p = (controller->flags->nbfl) - 1;
+	out = NULL;
+
+	while(p >= 0 && *in > 0)
+	{
+		val = ft_abs(controller->flags->vals[p]) - ft_strlen(in);
+	 	if(controller->flags->flags[p] == '0')
+	 	{	
+	 		if(controller->flags->flags[p + 1] == '.' && isin(controller->str_in[*(controller->pos)], "di"))
+	 			out = add_fill(in, ' ', val, 1);
+ 			else
+ 				out = add_fill(in, '0', val, 1);
+ 	 	}
+		else if(controller->flags->flags[p] == 'n')
+		{	
+			if(controller->flags->flags[p - 1] == '.' )	
+ 				out = add_fill(in, ' ', val, 1);
+			else
+				out = add_fill(in, ' ', val, 0);
+		}
+ 		else if(controller->flags->flags[p] == '.')
+ 		{
+ 			if(isin(controller->str_in[*(controller->pos)], "s"))
+ 				out = ft_substr(in, 0, controller->flags->vals[p]);
+ 			else if (isin(controller->str_in[*(controller->pos)], "d") && in[0] == '-')
+ 				in[0] = '0';
+ 				out = add_fill(in, '0', val, 1);
+ 				out[0] = '-';
+ 			else
+ 				out = add_fill(in, '0', val, 1);
+>>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
  		}
  		if(out != NULL)
  			in = out;
  		p--;
 	}
+<<<<<<< HEAD
 	//printf("end =  |%s| \n",out);
+=======
+>>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
 	if (out != NULL)
 		return out;
 	else
@@ -215,9 +282,14 @@ t_flags *getflags(t_contr *controller, int i)
 	 	return NULL;
 	flags->flags = flag;
 	flags->vals = nb;	
+<<<<<<< HEAD
 	while(!isin(controller->str_in[j + pos], "disupxXc%") && controller->str_in[j + pos] != '\0')
 	{	
 		//printf("current flag = %c \n",controller->str_in[j + pos] );
+=======
+	while(!isin(controller->str_in[j + pos], "disupxXc%"))
+	{	
+>>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
 		if(isin(controller->str_in[j + pos], "123456789*"))
 		{
 
@@ -225,11 +297,14 @@ t_flags *getflags(t_contr *controller, int i)
 			if(controller->str_in[j + pos] == '*')
 			{
 				nb[p] = va_arg(*(controller->args), int);	
+<<<<<<< HEAD
 				if(nb[p] < 0)
 				{
 					flag[p] = '-';
 					nb[p] = ft_abs(nb[p]);
 				}
+=======
+>>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
 				pos += 1;
 			}
 			else
@@ -239,6 +314,7 @@ t_flags *getflags(t_contr *controller, int i)
 					pos++;
 			} 
 		}
+<<<<<<< HEAD
 		else if(controller->str_in[j + pos] == '-')
 		{
 			//printf("here\n");
@@ -256,6 +332,8 @@ t_flags *getflags(t_contr *controller, int i)
 					pos++;
 			}
 		}
+=======
+>>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
 		else if(controller->str_in[j + pos] == '0')
 		{
 			flag[p] = '0';
@@ -288,6 +366,7 @@ t_flags *getflags(t_contr *controller, int i)
 					pos++;	
 			}
 		}
+<<<<<<< HEAD
 		else
 		{
 			//free(flag);
@@ -312,6 +391,12 @@ t_flags *getflags(t_contr *controller, int i)
  	flags->nbfl = p;
 	*(controller->pos) += pos;
 	controller->flags = flags;
+=======
+		p++;
+	}
+ 	flags->nbfl = p;
+	*(controller->pos) += pos;
+>>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
 	return flags;
 }
 
@@ -323,6 +408,7 @@ void	process(t_contr *controller)
 	
 	i = *(controller->pos);
 	c = controller->str_in[i];
+<<<<<<< HEAD
 	getflags(controller, getmaxflags(controller));
 	c = controller->str_in[*(controller->pos)];
 	if(c == 'd' || c == 'i')
@@ -355,6 +441,38 @@ void	process(t_contr *controller)
 	}
 	else
 		write(1," ",1);
+=======
+	controller->flags = getflags(controller, getmaxflags(controller));
+	c = controller->str_in[*(controller->pos)];
+	if(c == 'd' || c == 'i')
+	{
+		process_di(controller);
+	}
+	else if (c == 's')
+	{
+		process_s(controller);
+	}
+	else if (c == 'u')
+	{
+		process_u(controller);
+	}
+	else if (c == 'p')
+	{
+		process_p(controller);
+	}
+	else if (c == 'X' || c == 'x')
+	{
+		process_x(controller, c);
+	}
+	else if (c == '%'){
+		
+		process_pr(controller);
+	}
+	else if (c == 'c')
+	{	
+		process_c(controller);
+	}
+>>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
 }
 
 
