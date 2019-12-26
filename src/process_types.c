@@ -23,13 +23,9 @@ void process_s(t_contr *controller)
 	//printf("S PROCESS \n");
 	out = ft_strdup(va_arg(*(controller->args), char *));
 	if (out == NULL)
-<<<<<<< HEAD
 	{
 		out = ft_strdup("(null)");
 	}
-=======
-		out = ft_strdup("(null)");
->>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
 	
 	out = applyflags(controller, out);
 	int len = ft_strlen(out);
@@ -55,18 +51,13 @@ void process_p(t_contr *controller)
 	number = va_arg(*(controller->args), unsigned long);
 	out = ft_ultoa(number);
 	tmp = ft_convert_base(out, "0123456789", "0123456789abcdef");
-<<<<<<< HEAD
-	
+	//printf("tmp = %s\n", tmp );
 	free(out);
 	out = ft_strjoin("0x", tmp);
+	//printf("tmp = %s\n", out );
 	free(tmp);
 	out = applyflags(controller, out);
-=======
-	free(out);
-	out = ft_strjoin("0x", tmp);
-	free(tmp);
-	
->>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
+	//printf("AF  = %s\n", out );
 	len = ft_strlen(out);
 	write(1,out, len);
 	*(controller->len) += len;
@@ -173,11 +164,7 @@ void process_pr(t_contr *controller)
 
 	out = ft_strdup("%");
 	//process flags ? 
-<<<<<<< HEAD
 	out = applyflags(controller, out);
-=======
-	//out = applyflags(controller, out);
->>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
 	len = ft_strlen(out);
 	write(1, out, len);
 	*(controller->len) += len;
@@ -195,13 +182,9 @@ void process_c(t_contr *controller)
 
 	i = 0;
 	out = ft_strdup("c");
-<<<<<<< HEAD
 	//printf("b4 flags\n |%s| \n", out);
 	out = applyflags(controller, out);
 	//printf("af flags\n |%s| \n", out);
-=======
-	out = applyflags(controller, out);
->>>>>>> 8732b494d165facc00760479b3d7ff7771b3f435
 	len = ft_strlen(out);
 	
 	while (i < len)

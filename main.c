@@ -63,8 +63,11 @@ int main()
 	// printf(" : %d\n",printf("%2c", '1'));
 	// printf(" : %d\n",ft_printf("%2c", '1'));
 
-	printf(" : %d\n",printf("%.*d", -10, 42));
-	printf(" : %d\n",ft_printf("%.*d", -10, 42));
+	printf(" : %d\n",printf("%.*i", -6, -3));
+	printf(" : %d\n",ft_printf("%.*i", -6, -3));
+
+	printf(" : %d\n",printf("%0*i", -7, -54));
+	printf(" : %d\n",ft_printf("%0*i", -7, -54));
 	//printf(" : %d\n",ft_printf("%.20d", INT_MAX ));
 	//printf(" : %d\n",ft_printf("%.13d", INT_MAX + 1));
 
