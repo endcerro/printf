@@ -21,7 +21,7 @@ int main()
 	//	printf(" : %d\n",ft_printf("%010.2i", nb));
 	//printf(" : %d\n",printf("%010.2i", nb));
 
-	//printf(" : %d\n",ft_printf("%010.2c", 'A'));
+	ft_printf("%010.2c", 'A');
 	//printf(" : %d\n",printf("%010.2c", 'A'));
 
 
@@ -71,8 +71,7 @@ int main()
 //	printf(" : %d\n",ft_printf("%.0s", "Hello"));
 	
 
-	printf(" : %d\n",printf("%016.*i", -1, -2147483647));
-	printf(" : %d\n",ft_printf("%016.*i", -1, -2147483647));
+	printf(" : %d\n",ft_printf("%.*i", -1, -2147483647));
 
 	// printf(" : %d\n",printf("%010.2i", 0) );
 	// printf(" : %d\n",ft_printf("%010.2i", 0) );

@@ -41,6 +41,7 @@ char	*add_fill(char *base, char fill, int cpt, int order)
 		tmp = ft_strjoin(to_add, base);
 	else
 		tmp = ft_strjoin(base, to_add);
+	free(base);
 	free(to_add);
 	return (tmp);
 }
@@ -61,69 +62,36 @@ char *applyflags(t_contr *controller, char *in)
 
 	while(p >= 0 && *in >= 0)
 	{
-
 		val = ft_abs(controller->flags->vals[p]) - ft_strlen(in);
 	 	if(controller->flags->flags[p] == '0')
 	 	{	
-	 		//printf("hERE\n");
 	 		if(controller->flags->flags[p + 1] == '.' && isin(controller->str_in[*(controller->pos)], "diuxX"))
  			{
- 				//printf("hERE\n");
- 				//printf("OUT = %s\n",out );
- 				//printf(" flag p = |%d|\n",controller->flags->vals[p]);
- 				//printf(" flag p+1 = %d, len = %d, val = %d\n",controller->flags->vals[p + 1],(int)ft_strlen(in), val  );
- 				//if(ft_abs(controller->flags->vals[p + 1]) > (int)ft_strlen(in) && val > 1)
  				if(controller->flags->vals[p + 1] < 0)
  				{	
-				//	printf("in %s\n", in);
-					
-				//	printf("out %s\n", out);
-
- 					if(controller->flags->vals[p] > 0)
+					if(controller->flags->vals[p] > 0)
  					{
  						if(in[0] == '-')
  						{
  							in[0] = '0';
  							out = add_fill(in, '0', val, 1);
  							out[0] = '-';
- 							//printf(" MRE \n");	
  						}
  						else
-							out = add_fill(in, '0', val, 1);
- 						
+							out = add_fill(in, '0', val, 1);				
  					}
 					else
-					{
 						out = add_fill(in, ' ', val, 0);
-			//			printf(" 2 \n");
-					}
-					//printf("in %s\n", in);
-			//		printf("out %s\n", out);
 				}
  				else if(ft_abs(controller->flags->vals[p + 1]) > (int)ft_strlen(in) && val > 1)
- 				{
- 						//printf("ici\n");
  					out = add_fill(in, '0', val, 1);
- 				
- 				}
-	 			else
+ 				else
 	 			{	
-	 				//printf("val = %d \n",controller->flags->vals[p + 1] );
 	 				if(controller->flags->vals[p] > 1)
-	 				{
-	 					//printf("ici\n");
 	 					out = add_fill(in, ' ', val, 1	);
-	 				}
 	 				else
-	 				{
-	 				//	printf("ici\n");
 	 					out = add_fill(in, ' ', val, 0);
-	 				}
-	 				
-	 					
 	 			}
-	 			//printf("OUT = %s\n",out );
-	 			//printf("IN = %s\n",in);
 	 		}
  			else if (isin(controller->str_in[*(controller->pos)], "diuxX") && in[0] == '-')
  			{
@@ -142,14 +110,10 @@ char *applyflags(t_contr *controller, char *in)
  				if(controller->flags->vals[p] < 0)
 					out = add_fill(in, ' ', val, 0);
 				else
-				{
  					out = add_fill(in, '0', val, 1);
-				}
  			}
  			else
  				out = add_fill(in, ' ', val, 1);
-
- 			//printf("OUT = %s\n",out );
  	 	}
 		else if(controller->flags->flags[p] == 'n')
 		{	
@@ -162,13 +126,10 @@ char *applyflags(t_contr *controller, char *in)
 			out = add_fill(in, ' ', val, 0);
 		else if(controller->flags->flags[p] == '.')
  		{
- 			//printf("In here\n");
  			if(controller->flags->vals[p] == 0)
  				out = in;
-
  			if(isin(controller->str_in[*(controller->pos)], "s"))
  			{
- 				//printf("here\n");
  				if(controller->flags->vals[p] > 0)
  					out = ft_substr(in, 0, ft_abs(controller->flags->vals[p]));
  				else if(controller->flags->vals[p] == 0)
@@ -178,7 +139,6 @@ char *applyflags(t_contr *controller, char *in)
  			}
  			else if (isin(controller->str_in[*(controller->pos)], "di") && in[0] == '-')
  			{
- 				//printf("here\n");
 				val++;
  				if(controller->flags->vals[p] > 0)
 				{
@@ -189,13 +149,9 @@ char *applyflags(t_contr *controller, char *in)
  				}
 			}
  			else if (ft_strlen(in) == 1 && *in == '%' )
- 			{
- 				//printf("here\n");
  				out = in;
- 			}
  			else if(controller->str_in[*(controller->pos)] == 'p')
  			{
- 				//printf("here\n");
  				if(in[2] == '0' && val <= 0)
  					out = ft_strdup("0x");
  				else
@@ -207,24 +163,12 @@ char *applyflags(t_contr *controller, char *in)
  			}
  			else
  			{
- 				//printf("here\n");
  				if(val < 0 && *in == '0')	
-				{
- 					//printf("1\n");
  					out = ft_strdup("");
- 				}
  				else if (controller->flags->vals[p] > 0)
- 				{
- 					//printf("2\n");
  					out = add_fill(in, '0', val, 1);
- 				}
  				else
- 				{	
- 			 		//printf("val = %d \n", val);
- 					//Change ehre
  					out = add_fill(in, ' ', 0, 0);
- 				}
- 			//	printf("OUT = %s\n",out );
  			}
 
  		}
@@ -276,10 +220,8 @@ void getflags(t_contr *controller, int i)
 	flags->vals = nb;	
 	while(!isin(controller->str_in[j + pos], "disupxXc%") && controller->str_in[j + pos] != '\0')
 	{	
-		//printf("current flag = %c \n",controller->str_in[j + pos] );
 		if(isin(controller->str_in[j + pos], "123456789*"))
 		{
-
 			flag[p] = 'n';
 			if(controller->str_in[j + pos] == '*')
 			{
@@ -300,7 +242,6 @@ void getflags(t_contr *controller, int i)
 		}
 		else if(controller->str_in[j + pos] == '-')
 		{
-			//printf("here\n");
 			flag[p] = '-';
 			if(controller->str_in[j + pos + 1] == '*')
 			{
@@ -309,17 +250,10 @@ void getflags(t_contr *controller, int i)
 			}
 			else
 			{
-				//printf("Hello ? \n");
 				pos++;
-				//printf("In = %s\n",controller->str_in);
 				nb[p] = ft_atoi((const char *)controller->str_in + j + pos);
 				while(isin(controller->str_in[j + pos], "0123456789") && controller->str_in[j + pos] != '\0')
-				{
-					//printf("in char c = %c\n",controller->str_in[j + pos]);
 					pos++;
-				}
-			//	printf("pos\n");
-			//	printf("CHAR = %c\n",controller->str_in[j + pos]);
 			}
 		}
 		else if(controller->str_in[j + pos] == '0')
@@ -356,33 +290,25 @@ void getflags(t_contr *controller, int i)
 		}
 		else
 		{
-
-			//free(flag);
-			//free(nb);
-			//free(flags);
-			//printf("CHAR = |%c|\n",controller->str_in[*(controller->pos) + j]);
 			if(controller->str_in[*(controller->pos)] == '\0')
 				printf("coucou\n");
 			flags->nbfl = p;
 			*(controller->pos) += pos;
 			controller->flags = flags;
-			
-			//write(1," ",1);
-			//printf("UNKNOW FLAG\n");
 			return;
-			
 		}
 		p++;
 	}
-	// for(int i = 0; i < p; i++)
-	// {
-	//  	printf("Flag ; %c ; %d\n",flag[i], nb[i]);
-	// }
-	// if(pos == 0)
-	// 	return NULL;
  	flags->nbfl = p;
 	*(controller->pos) += pos;
 	controller->flags = flags;
+}
+
+void free_flags(t_contr *controller)
+{
+	free(controller->flags->flags);
+	free(controller->flags->vals);
+	free(controller->flags);
 }
 
 void	process(t_contr *controller)
@@ -396,39 +322,23 @@ void	process(t_contr *controller)
 	getflags(controller, getmaxflags(controller));
 	c = controller->str_in[*(controller->pos)];
 	if(c == 'd' || c == 'i')
-	{
 		process_di(controller);
-	}
 	else if (c == 's')
-	{
 		process_s(controller);
-	}
 	else if (c == 'u')
-	{
 		process_u(controller);
-	}
 	else if (c == 'p')
-	{
 		process_p(controller);
-	}
 	else if (c == 'X' || c == 'x')
-	{
 		process_x(controller, c);
-	}
 	else if (c == '%')
-	{
 		process_pr(controller);
-	}
 	else if (c == 'c')
-	{	
 		process_c(controller);
-	}
 	else
 		write(1,"",1);
+	free_flags(controller);
 }
-
-
-
 
 int				ft_printf(const char *str_in, ...)
 {
@@ -459,5 +369,6 @@ int				ft_printf(const char *str_in, ...)
 	}
 	free(controller);
 	va_end(args);
+//	system("leaks a.out");
 	return (len);
 }
