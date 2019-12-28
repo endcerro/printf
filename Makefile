@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edal--ce <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/18 17:54:38 by edal--ce          #+#    #+#              #
-#    Updated: 2019/12/18 21:50:30 by edal--ce         ###   ########.fr        #
+#    Updated: 2019/12/28 10:10:15 by edal--ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ INCL = header/
 
 HEADER = $(INCL)ft_printf.h
 
-CC = clang
+CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -33,11 +33,11 @@ LIBLINK = -L./ -lftprintf
 
 LIB = libft/
 
-OBJLIB = $(LIB)/*.o
+OBJLIB = $(LIB)/src/*.o
 
 LIBFT = $(LIB)libft.a
 
-all : complib $(NAME)
+all : test $(NAME)
 
 $(OBJS) : %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -I $(INCL) -c $< -o $@ 
@@ -45,7 +45,7 @@ $(OBJS) : %.o: %.c $(HEADER)
 $(NAME) : $(OBJS)
 	ar rcs $@ $(OBJS) $(OBJLIB)
 
-complib :
+test :
 	$(MAKE) -C libft all
 
 cleanlibft :
@@ -63,4 +63,4 @@ fclean : clean fcleanlibft
 
 re : fclean all
 
-.PHONY : all clean fclean re complib cleanlibft fcleanlibft
+.PHONY : all clean fclean re libft cleanlibft fcleanlibft

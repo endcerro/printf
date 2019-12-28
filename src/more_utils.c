@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   more_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 05:21:36 by edal--ce          #+#    #+#             */
-/*   Updated: 2019/12/28 05:21:37 by edal--ce         ###   ########.fr       */
+/*   Updated: 2019/12/28 11:41:53 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	get_flag_contr(t_contr *controller, int i)
 	j = 0;
 	if (!(flags = malloc(sizeof(t_flags))))
 		return ;
-	if (!(flags->vals = malloc(sizeof(int) * i)))
+	if (!(flags->vals = malloc(sizeof(int) * (i + 1))))
 		return ;
-	if (!(flags->flags = malloc(sizeof(char) * i)))
+	if (!(flags->flags = malloc(sizeof(char) * (i + 1))))
 		return ;
 	controller->flags = flags;
-	while (j < i)
+	while (j <= i)
 	{
 		flags->flags[j] = 0;
 		flags->vals[j] = 0;
