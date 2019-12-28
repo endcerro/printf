@@ -72,31 +72,31 @@ char				*process_0(t_contr *ctlr, int p, int val, char *in)
 
 char				*process_dot(t_contr *ctlr, int p, int val, char *in)
 {
+	char *tmp;
+
+	tmp = NULL;
 	if (ctlr->str_in[*(ctlr->pos)] == 's' && ctlr->flags->vals[p] > 0)
-		return (ft_substr(in, 0, ctlr->flags->vals[p]));
+		tmp = ft_substr(in, 0, ctlr->flags->vals[p]);
 	else if (ctlr->str_in[*(ctlr->pos)] == 's' && ctlr->flags->vals[p] == 0)
-		return (ft_strdup(""));
-	else if (ctlr->str_in[*(ctlr->pos)] == 's')
-		return (in);
+		tmp = ft_strdup("");
+	else if (ctlr->str_in[*(ctlr->pos)] == 's'
+		|| ((ft_strlen(in) == 1 && *in == '%')))
+		tmp = tmp + 1 - 1;
 	else if (isin(ctlr->str_in[*(ctlr->pos)], "di") && in[0] == '-'
 		&& ++val && ctlr->flags->vals[p] > 0)
 		return (add_fill_0(in, '0', val, 1));
-	else if (ft_strlen(in) == 1 && *in == '%')
-		return (in);
+	else if (ctlr->str_in[*(ctlr->pos)] == 'p' && (in[2] == '0' && val <= 0))
+		tmp = ft_strdup("0x");
 	else if (ctlr->str_in[*(ctlr->pos)] == 'p')
-	{
-		if (in[2] == '0' && val <= 0)
-			return (ft_strdup("0x"));
 		return (add_fill_hex(in, '0', val + 2, 1));
-	}
-	else
-	{
-		if (val < 0 && *in == '0')
-			return (ft_strdup(""));
-		else if (ctlr->flags->vals[p] > 0)
-			return (add_fill(in, '0', val, 1));
-	}
-	return (in);
+	else if (val < 0 && *in == '0')
+		tmp = ft_strdup("");
+	else if (ctlr->flags->vals[p] > 0)
+		return (add_fill(in, '0', val, 1));
+	if (tmp == NULL)
+		tmp = ft_strdup(in);
+	free(in);
+	return (tmp);
 }
 
 int					getmaxflags(t_contr *controller)

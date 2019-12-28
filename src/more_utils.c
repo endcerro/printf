@@ -15,7 +15,9 @@
 void	get_flag_contr(t_contr *controller, int i)
 {
 	t_flags *flags;
+	int		j;
 
+	j = 0;
 	if (!(flags = malloc(sizeof(t_flags))))
 		return ;
 	if (!(flags->vals = malloc(sizeof(int) * i)))
@@ -23,6 +25,12 @@ void	get_flag_contr(t_contr *controller, int i)
 	if (!(flags->flags = malloc(sizeof(char) * i)))
 		return ;
 	controller->flags = flags;
+	while (j < i)
+	{
+		flags->flags[j] = 0;
+		flags->vals[j] = 0;
+		j++;
+	}
 }
 
 int		sub_proc_getflags(t_contr *ctr, int *pos, int j, int p)

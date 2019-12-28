@@ -19,24 +19,23 @@ char				*applyflags(t_contr *controller, char *in)
 	int				val;
 
 	p = (controller->flags->nbfl);
-	out = NULL;
-	while (--p >= 0 && *in >= 0)
+	out = ft_strdup(in);
+	free(in);
+	while (--p >= 0 && *out >= 0)
 	{
-		val = ft_abs(controller->flags->vals[p]) - ft_strlen(in);
+		val = ft_abs(controller->flags->vals[p]) - ft_strlen(out);
 		if (controller->flags->flags[p] == '0')
-			out = process_0(controller, p, val, in);
+			out = process_0(controller, p, val, out);
 		else if (controller->flags->flags[p] == 'n')
-			out = add_fill(in, ' ', val,
+			out = add_fill(out, ' ', val,
 				(!(isin(controller->str_in[*(controller->pos)], "c") &&
 					controller->flags->vals[p] <= 0)));
 		else if (controller->flags->flags[p] == '-')
-			out = add_fill(in, ' ', val, 0);
+			out = add_fill(out, ' ', val, 0);
 		else if (controller->flags->flags[p] == '.')
-			out = process_dot(controller, p, val, in);
-		if (out != NULL)
-			in = out;
+			out = process_dot(controller, p, val, out);
 	}
-	return (in);
+	return (out);
 }
 
 void				getflags(t_contr *controller, int i)
