@@ -12,7 +12,12 @@
 
 NAME = libftprintf.a
 
-SRCS = 	src/ft_printf.c src/unsigned.c src/ft_ultoa.c src/process_types.c src/utils.c src/process_other.c src/more_utils.c
+SRCS = 	src/ft_printf.c \
+		src/ft_ultoa.c \
+		src/process_types.c \
+		src/utils.c \
+		src/process_other.c \
+		src/more_utils.c
 			
 OBJS = $(SRCS:.c=.o)
 
